@@ -1,0 +1,23 @@
+n=int(input())
+n1=list(map(int,input().split()))
+n1.sort()
+
+m=int(input())
+m1=list(map(int,input().split()))
+
+for i in m1:
+    start, end = 0,len(n1)-1  #start = 0, end = 4로 초기화
+    while 1:
+        mid = round((start+end)/2)
+        if n1[mid] == i:
+            print("1")
+            break
+        elif n1[mid] > i:
+            end = mid
+        elif n1[mid] < i:
+            start = mid
+        if start == end:
+            print("0")
+            break
+
+mid의 위치값을 start와 end로 조정하여 탐색을 하나 mid 값이 중복이 되므로 시간이 오래걸림
