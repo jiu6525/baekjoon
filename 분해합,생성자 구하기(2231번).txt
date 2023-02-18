@@ -1,0 +1,18 @@
+n = int(input())
+a = 1
+l = []
+a1 = [i for i in range(1,1000000)]                    #1부터 1000000까지 리스트(생성자)
+
+while 1:
+    if a < 1000000:
+        c = a+sum(list(map(int,str(a))))    
+        l.append(c)                                 #생성자를 통한 분해합 생성
+        a += 1
+    else:
+        break                                      
+
+if n in l:
+    l1 = l.index(n)                                 #입력값 n 에대한 l에서의 인덱스값
+    print(a1[l1])
+else:
+    print("0")
