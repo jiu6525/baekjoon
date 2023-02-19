@@ -1,0 +1,26 @@
+import sys
+from operator import itemgetter
+input = sys.stdin.readline
+n = int(input())
+l =[]
+for i in range(n):
+    [a,b] =input().split()
+    a = int(a)
+    b = str(b)
+    l.append([a,b])
+l.sort(key=itemgetter(0))
+for i in range(n):
+    print(l[i][0],l[i][1])
+
+
+10814번은 안정정렬을 사용하여 나이를 기준으로 정렬하되, 정렬 후 입력 순으로 정렬하는것
+아래는 2차배열에서 첫번째값만 이용하여 정렬하는것
+
+import sys
+n = int(sys.stdin.readline())
+l = []
+for i in range(n):
+    l.append(sys.stdin.readline().strip())
+l.sort(key=lambda x: int(x.split(' ')[0]))
+for i in l:
+    print(i)
