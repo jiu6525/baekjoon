@@ -1,0 +1,15 @@
+import sys
+input = sys.stdin.readline
+n = int(input())
+l = []
+for i in range(n):
+    l.append(input().strip())
+l1 = set(l)
+l = list(l1)
+l.sort()
+l.sort(key=len)
+for i in l:
+    print(i)
+
+
+*문자열 길이순 정렬

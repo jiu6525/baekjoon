@@ -1,0 +1,16 @@
+import sys
+input = sys.stdin.readline
+n = int(input())
+l =[]
+for i in range(n):
+    [a,b] = map(int,input().split())
+    l.append([a,b])
+# l1 = sorted(l, key = lambda x: x[1])     
+# -> [][1] 2중리스트 2번째 값으로 정렬
+# -> b 값이 같을경우 a값으로 정렬을 하지않아서 아래줄처럼 추가
+l.sort(key = lambda x:(x[1],x[0]))
+for i in range(n):
+    print(l[i][0],l[i][1])
+
+*2차원 배열 정렬 참고 사이트
+https://asxpyn.tistory.com/75
