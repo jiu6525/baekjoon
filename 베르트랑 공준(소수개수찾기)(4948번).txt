@@ -1,0 +1,26 @@
+def prime_list(a):
+    n1 = 2*a+1
+    list1 = [True] * n1
+    m = int(n1 ** 0.5)
+    for i in range(2, m + 1):
+        if list1[i] == True:          
+            for j in range(i+i, n1, i): 
+                list1[j] = False
+
+    return [i for i in range(a+1, n1) if list1[i] == True and i > 1]
+
+while 1:
+    a = int(input())
+    if a == 0:
+        break
+    else:
+        l = []
+        c = prime_list(a)
+        for i in c:
+            l.append(i)
+        print(len(l))
+        l.clear()
+
+
+#1929번 소수찾기에서 범위 수정, 함수를 while에 추가하여 리스트 요소의 개수를 출력후 초기화
+-> return받는 함수부분의 범위도 수정해야함

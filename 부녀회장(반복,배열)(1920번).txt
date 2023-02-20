@@ -1,0 +1,21 @@
+import sys
+input = sys.stdin.readline
+n = int(input())
+
+def ii(a,b):
+    l = [i for i in range(1,b+1)]
+    l1 = [i for i in range(1,b+1)]
+
+    while a > 0:
+        a -= 1
+        for i in range(1,len(l)):
+            l[i] = l1[i-1] + l1[i]
+            l1 = l
+    print(l[b-1])
+
+for i in range(n):
+    ii(int(input()),int(input()))
+
+# 공부 초기에는 배열을 이해하지 못해서 풀지 못했던 문제, 시간이 지나고 해설없이 풀이가능
+0층의 값을 2개를 만든 후,
+함수를 지정하여 l1의 값을 통하여 l의 인덱스에따른 값 변화, l을 l1에 저장하여 입력한 수에따른 반복실행

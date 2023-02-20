@@ -1,0 +1,15 @@
+import sys
+input = sys.stdin.readline
+n, m = map(int,input().split())
+n1 = set(input() for i in range(n))
+m1 = list(input() for i in range(m))
+c = 0
+for i in m1:
+    if i in n1:
+        c += 1
+print(c)
+
+
+집합 n1중 m1이 몇개있는지 찾는 문제.
+어렵지는 않으나 중간에 m1 리스트를 set해서 틀렸습니다가 나옴
+이유 : 문자열이라 중복도 가능하나 set은 중복 허용 x
