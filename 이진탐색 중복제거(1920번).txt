@@ -1,0 +1,25 @@
+n=int(input())
+n1=list(map(int,input().split()))
+n1.sort()
+
+m=int(input())
+m1=list(map(int,input().split()))
+
+for i in m1:
+    start, end = 0,len(n1)-1  #start = 0, end = 4로 초기화
+    while 1:
+        mid = round((start+end)/2)
+        if n1[mid] == i:
+            print("1")
+            break
+        elif n1[mid] > i:
+            end = mid - 1
+        elif n1[mid] < i:
+            start = mid + 1
+        if start > end:
+            print("0")n=int(input())
+
+# mid값은 기존에 탐색했으니 +-를 통해 end,start값 조정
+            break
+
+mid값은 기존에 탐색했으니 +-를 통해 end,start값 조정
