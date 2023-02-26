@@ -1,0 +1,49 @@
+a = [6,3,2,10,10,10,-10,-10,7,3]       
+b = [10,9,-5,2,3,4,5,-10]
+dic = {}
+
+for i in a:
+    if i in dic:
+        dic[i] += 1
+    else:
+        dic[i] = 1
+
+for i in b:
+    result = dic.get(i)
+    if result == None:
+        print(0,end=" ")
+    else:
+        print(dic[i],end=" ")
+
+
+숫자카드 2 문제인데 딕셔너리를 사용하여 풀이방법을 알기전까지 상당히 어려웠다.
+1920번처럼 이분탐색을 사용하려고 하였으나 시간초과에 막혀서 해설을 본 결과 dic 집합에 a의 요소가 몇개씩인지 확인후 딕셔너리의 밸류값을 얻을수있는 get함수를 통해 result 변수에 저장
+result 값이 None일경우 0 아닐경우 dic[i]의 값을 출력
+이분탐색을 통한 딕셔너리 방법으로 꼭 풀어봅시다.
+아래는 처음풀이
+import sys
+input = sys.stdin.readline
+n = input()
+a = list(map(int,input().split()))
+m = input()
+b = list(map(int,input().split()))
+dic = [0 for i in range(len(b))]
+b0 = sorted(b)
+for i in a:
+    start = 0
+    end = len(b)-1
+    while 1:
+        mid = round((start+end)/2)
+        b1 = b0[mid]
+        if b1 == i:
+            dic[b.index(i)] += 1
+            break
+        elif b1 < i:
+            start = mid + 1
+        elif b1 > i:
+            end = mid - 1
+        
+        if start > end:
+            break
+for i in dic:
+    print(i,end = " ")
