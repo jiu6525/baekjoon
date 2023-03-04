@@ -1,0 +1,28 @@
+def f(n):
+    result = 1
+    for i in range(n,0,-1):
+        result *= i
+    return result
+
+m = int(input())
+for i in range(m):
+    a,b = map(int,input().split())
+    if a == b:
+        print("1")
+    else:    
+        result1 = f(b)//(f(a)*f(b-a))
+        print(result1)
+
+#조합을 사용하여 푸는 문제로 b의 다리수에대한 a의 수 
+즉, bCa 를 구하는 문제이다
+bCa는 b!/a!*(b-a)!을 사용하여 풀이가능
+아래는 내장함수 comb를 사용하여 풀이
+
+from math import comb
+import sys
+input = sys.stdin.readline
+
+T = int(input())
+for _ in range(T):
+    N, M = map(int, input().split())
+    print(comb(M, N))
