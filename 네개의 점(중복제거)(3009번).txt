@@ -1,0 +1,46 @@
+x = []
+y = []
+for i in range(3):
+    a, b = map(int, input().split())
+    if a in x:
+        x.remove(a)
+    else:
+        x.append(a)
+    if b in y:
+        y.remove(b)
+    else:
+        y.append(b)
+
+print(x[0], y[0])
+
+
+#x, y 각 좌표끼리 묶어서 중복을 제거한 후 남은 원소로 x[0], y[0] 출력하면 되는문제
+처음에 값을 모두 삭제하는 방법에 대하여 if 생각을 못해서 함수를 사용하여 풀이했다 아래는 내풀이
+
+
+def coma(a):
+    x = []
+    new_a = [] 
+
+    for i in a:
+        if i not in x: 
+            x.append(i)
+        else:
+            if i not in new_a: 
+                new_a.append(i)
+
+    remove_a = set(new_a)
+
+    a = [i for i in a if i not in remove_a]
+    return a
+
+n = 3
+x = []
+y = []
+for i in range(n):
+    a,b = (input().split())
+    x.append(a)
+    y.append(b)
+
+result = coma(x) + coma(y)
+print(" ".join(result))

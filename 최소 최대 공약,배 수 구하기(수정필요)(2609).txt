@@ -1,0 +1,35 @@
+a = list(map(int,input().split()))
+a.sort()
+a1 = a[0]
+a2 = a[1]
+c = a2 % a1
+result = c
+if result == 0:
+    print(a1)
+    print(a2*a1//a1)
+else:    
+    while 1:
+        if c == 0:
+            print(result)
+            print(a2*a1//result)
+            break
+        else:
+            result = c
+            c = a1 % c
+
+
+처음에 짠 코드이며 결과는 잘 도출되지만 틀렸다고 나와서
+참고자료를 활용하였다.
+
+a,b = map(int,input().split())
+a1, b1 = a,b
+
+while b1 != 0:
+    a1 = a1%b1
+    a1,b1 = b1,a1
+
+print(a1)
+print(a*b//a1)
+
+#최소공배수, 최대공약수 구하기
+# 유클리드 호제법 https://suri78.tistory.com/36
