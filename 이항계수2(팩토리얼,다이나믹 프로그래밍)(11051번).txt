@@ -1,0 +1,15 @@
+import sys
+input = sys.stdin.readline
+def facto(n):
+    result = 1
+    for i in range(n,1,-1):
+        result *= i
+    return result
+
+a,b = map(int,input().split())
+result1 = facto(a)//(facto(b)*facto(a-b))
+print(result1%10007)
+
+# 팩토리얼을 사용하여 푸는 문제인데 파스칼의 삼각형으로도 풀이가 가능하다고 한다. 아직 다이나믹 프로그래밍에대하여 잘 모르니 나중에 공부후 다시한번 풀어보자
+관련사이트
+#https://velog.io/@ledcost/%EB%B0%B1%EC%A4%80-11051-%ED%8C%8C%EC%9D%B4%EC%8D%AC-%EC%9D%B4%ED%95%AD-%EA%B3%84%EC%88%98-2-%EC%8B%A4%EB%B2%841-%EC%A1%B0%ED%95%A9%EB%A1%A0
