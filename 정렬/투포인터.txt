@@ -1,0 +1,45 @@
+#투포인터
+#두수의 합
+n = 6
+a = [2,7,4,1,5,3]
+#[1, 2, 3, 5, 7, 9, 10, 11, 12]
+a.sort()
+m = 9
+left,right = 0,n-1
+count = 0
+while left<right:
+    result = a[left]+a[right]
+    if result == m:
+        count+=1
+    if result < m:
+        left+=1
+        continue
+    right-=1
+
+print(count)
+
+
+#투포인터
+#부분합 적용
+n = 6 # 데이터의 개수 N
+m = 9 # 찾고자 하는 부분합 M
+a = [2,7,4,1,5,3] # 전체 수열
+
+count = 0
+result = 0
+end = 0
+
+# start를 차례대로 증가시키며 반복
+for i in range(n):
+    # end 를 가능한 만큼 이동시키기
+    while result < m and end < n:
+        result += a[end]
+        end += 1
+    # 부분합이 m일 때 카운트 증가
+    if result == m:
+        count += 1
+    result -= a[i]
+    
+print(count) # 3
+
+
