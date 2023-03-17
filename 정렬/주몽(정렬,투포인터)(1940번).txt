@@ -1,0 +1,19 @@
+n = int(input())
+m = int(input())
+a = list(map(int,input().split()))
+a.sort()
+left,right = 0,n-1
+count = 0
+while left<right:
+    result = a[left]+a[right]
+    if result == m:
+        count+=1
+    if result < m:
+        left+=1
+        continue
+    right-=1
+
+print(count)
+
+#주몽
+#투포인터 사용 문제로 두수의 합을 통한 값을 산출하였다.
