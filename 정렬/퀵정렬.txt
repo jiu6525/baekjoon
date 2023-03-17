@@ -1,0 +1,20 @@
+import sys
+input = sys.stdin.readline
+n = int(input())
+l = [int(input()) for i in range(n)]
+def q_sort(l):
+    if len(l) <= 1:
+        return l
+    p = l[0]
+    tail = l[1:]
+
+    left_side = [x for x in tail if x <= p]
+    right_side = [x for x in tail if x > p]
+
+    return q_sort(left_side) + [p] + q_sort(right_side)
+
+result = q_sort(l)
+print(result)
+
+#퀵정렬
+p(pivot)이라는 기준을 통해 더 크고,더 작은 리스트를 만든 후 재귀함수를 통한 리턴값으로 정렬을 시행한다.
