@@ -1,0 +1,10 @@
+n = ['c=','c-','dz=','d-','lj','nj','s=','z=']
+a = input()
+for i in n:
+    if i in a:
+        a = a.replace(i,'1')
+print(len(a))
+
+#크로아티아 알파벳
+처음에 푸는방법을 몰라서 풀이를 보고 이해한 문제
+이때 replace는 반환값이 없어서 a을 해줘야 하는걸 알았다
