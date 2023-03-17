@@ -1,0 +1,18 @@
+import sys
+input = sys.stdin.readline
+n = int(input())
+
+result = {}
+for i in range(n):
+    a = int(input())
+    if a in result:
+        result[a] += 1
+    else:
+        result[a] = 1
+
+result1 = sorted(result.items(),key = lambda x : (-x[1],x[0]))
+print(result1[0][0])
+
+#카드
+딕셔너리를 이용하여 많은값을 찾는문제
+풀이를 참고했으므로 다시한번 풀어보자
