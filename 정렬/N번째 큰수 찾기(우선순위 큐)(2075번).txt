@@ -1,0 +1,19 @@
+import heapq
+n = int(input())
+l = []
+for i in range(n):
+    ls = map(int,input().split())
+    for j in ls:
+        if len(l)<n:
+            heapq.heappush(l,j)
+        else:
+            if l[0]<j:
+                heapq.heappop(l)
+                heapq.heappush(l,j)
+print(l[0])
+
+#N번째 큰수 찾기
+우선순위 큐를 이용한 풀이로 힙의 최대길이를 n으로 제한하여 값을 추가해주며
+힙의 최소값이 새로입력받은 값보다 작다면 최소값을 빼주고 다시 입력받는다.
+이렇게 할경우 n의 크기가 5이면 입력받은 값들중 5개의 큰값이 구해지는데 큐의 특성상 5번째값은 l의 0번째에 있게된다.
+다시풀어보자
