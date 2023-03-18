@@ -1,0 +1,48 @@
+import sys
+input = sys.stdin.readline
+n, a = map(int,input().split())
+c = 0
+while 1:
+    if n == a:
+       print(c+1)
+       break
+    elif a < n:
+        print('-1')
+        break
+    if a % 2 == 0:
+        a = a//2
+        c +=1
+    elif list(str(a))[-1] == '1':
+        a = list(str(a))
+        del a[-1]
+        a = int("".join(a))
+        c += 1
+    else:
+        print("-1")
+        break
+
+
+# A==B가 되기위해 조건으로 계산하여 횟수를 출력하는 문제
+
+처음에 접근하였을때는 입력을 받은 후 문자열 리스트로 변환 join으로 합치는등 복잡한 계산을 많이 하였는데
+다른사람의 풀이를 보니까 맨 끝이 1이라면 10으로 나눈 몫을 반환해주면 되는 것이였다;
+
+# 다른풀이
+a,b=map(int,input().split())
+c=1
+while 1:
+    if a == b:
+        print(c)
+        break
+    else:
+        c+=1
+    if b<a:
+        print("-1")
+        break
+    elif b%10==1:
+        b//=10
+    elif b%2==0:
+        b//=2
+    else:
+        print("-1")
+        break
