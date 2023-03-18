@@ -1,0 +1,42 @@
+import heapq
+import sys
+input = sys.stdin.readline
+n = int(input())
+l = []
+for i in range(n):
+    l.append(int(input()))
+l.sort(reverse=True)
+result = 0
+r = []
+for i in l:
+    if len(r) < 3:
+        heapq.heappush(r,i)
+    else:
+        heapq.heappop(r)
+        result += sum(r)
+        r.clear()
+        heapq.heappush(r,i)
+        
+if len(r) == 3:
+    heapq.heappop(r)
+    result += sum(r)
+else:
+    result += sum(r)
+print(result)
+
+#11508 2+1세일
+우선순위 큐를 사용하여 풀었는데 복잡하고 코드도 길어졌다.
+간단하게 다시 풀어보자
+
+#구간을 분리풀이법
+import sys
+input = sys.stdin.readline
+n = int(input())
+l = []
+for i in range(n):
+    l.append(int(input()))
+l.sort(reverse=True)
+result = 0
+for i in range(2,len(l),3):
+    result += l[i]
+print(sum(l)-result)

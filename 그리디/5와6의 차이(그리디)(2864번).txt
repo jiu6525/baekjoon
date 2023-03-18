@@ -1,0 +1,15 @@
+a,b = input().split()
+a1,b1 = a.replace('5','6') ,b.replace('5','6')
+a2,b2 = a.replace('6','5') ,b.replace('6','5')
+r1 = int("".join(a2))+int("".join(b2))
+r2 = int("".join(a1))+int("".join(b1))
+print(r1, r2)
+
+#5와 6의 차이
+replace 함수만 사용할줄 안다면 쉽게 풀수있는 문제
+아래는 간소화 코드
+
+a,b = input().split()
+r1 = int(a.replace('5','6'))+int(b.replace('5','6'))
+r2 = int(a.replace('6','5'))+int(b.replace('6','5'))
+print(r2, r1)
