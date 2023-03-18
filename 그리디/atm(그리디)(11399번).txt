@@ -1,0 +1,15 @@
+import sys
+input = sys.stdin.readline
+n = int(input())
+a = list(map(int,input().split()))
+a.sort()        #1,2,3,3,4
+result = [0 for i in range(n+1)]
+
+for i in range(len(a)):
+    result[i+1] = a[i] + result[i]
+
+print(sum((result)))
+
+#atm기계
+처음에는 시간값을 전부 구해서 가장 작은값을 추출하는건지 알았으나
+주어진 시간값을 작은순으로 나열하여 계산하기만 하면 끝나는 간단한 문제
