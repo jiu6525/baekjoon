@@ -1,0 +1,19 @@
+import sys
+input = sys.stdin.readline
+def sum1(x):
+    result = 0
+    for i in x:
+        if i.isdigit():
+            result += int(i)
+    return result
+
+n = int(input())
+s = [input().rstrip() for i in range(n)]
+s.sort(key=lambda x:(len(x),sum1(x),x))
+
+for i in s:
+    print(i)
+
+#시리얼 넘버
+문자열에서 숫자의 합을 구분하여 정렬하는게 어려워서 풀이를 참고하였다.
+함수를 정의하여 정렬하면 되었고 다시한번 풀어보자
