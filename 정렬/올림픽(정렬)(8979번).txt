@@ -1,0 +1,32 @@
+import sys
+input = sys.stdin.readline
+n,m = map(int,input().split())
+a = []
+for i in range(n):
+    a.append(list(map(int,input().split())))
+a.sort(key=lambda x:(-x[1],-x[2],-x[3]))
+l = [i[1:] for i in a]
+r = l[0]
+c = 1
+
+# m 국가의 위치 찾기
+index = 0
+for i in range(len(a)):
+    if a[i][0] == m:
+        index = i
+
+# 등수 판별
+for i in range(len(l)):
+    if l[i] == r:
+        l[i] = c
+    else:
+        c = i+1
+        r = l[i]
+        l[i] = c
+
+print(l[index])
+
+#올림픽
+정렬 후 찾으려고 하는 국가의 값인 m의 인덱스를 저장
+a[1:](메달의 개수만 있는 값)을 등수를 판별하여 저장
+공동 등수가 2개인 경우를 생각하여 c = i+1로 변경해주었다.
