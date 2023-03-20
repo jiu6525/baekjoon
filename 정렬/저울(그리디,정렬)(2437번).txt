@@ -1,0 +1,13 @@
+n = int(input())
+m = list(map(int,input().split()))
+m.sort()
+result = 0
+for i in m:
+    if i <= result+1:
+        result += i
+print(result+1)
+
+#저울
+코드는 간결하지만 과정을 생각하기 어려웠던 문제
+측정할수 있는 값 result에 대하여 다음 측정값인 result+1을 통해 i가 result+i보다 크지 않을때까지만 더한 후 결과값을 출력하였다.
+과정을 다시풀어보자
