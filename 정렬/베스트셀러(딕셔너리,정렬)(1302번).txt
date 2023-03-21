@@ -1,0 +1,16 @@
+import sys
+input = sys.stdin.readline
+n = int(input())
+l ={}
+for i in range(n):
+    a = input().rstrip()
+    if a in l:
+        l[a] += 1
+    else:
+        l[a] = 1
+result = sorted(l.items(),key=lambda x:(-x[1],x[0]))
+print(result[0][0])
+
+
+#베스트셀러
+입력값을 딕셔너리로 받은 후 가장많은값을 출력하도록 정렬해주고 값이 같은경우 사전순으로 정렬하였다.
