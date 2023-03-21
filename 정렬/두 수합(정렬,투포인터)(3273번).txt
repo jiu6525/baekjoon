@@ -1,0 +1,22 @@
+import sys
+input = sys.stdin.readline
+n = int(input())
+a = list(map(int,input().split()))
+#[1, 2, 3, 5, 7, 9, 10, 11, 12]
+a.sort()
+m = int(input())
+left,right = 0,n-1
+count = 0
+while left<right:
+    result = a[left]+a[right]
+    if result == m:
+        count+=1
+    if result < m:
+        left+=1
+        continue
+    right-=1
+
+print(count)
+
+#두수의 합
+#정렬 이후 투포인터를 사용하여 원하는 값을 찾았다
