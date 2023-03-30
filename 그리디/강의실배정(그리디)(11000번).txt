@@ -1,0 +1,22 @@
+import heapq
+import sys
+input = sys.stdin.readline
+n = int(input())
+l =[list(map(int,input().split())) for i in range(n)]
+l.sort()
+r = []
+heapq.heappush(r,l[0][1])
+for i in range(1,n):
+    if r[0] <= l[i][0]:
+        heapq.heappop(r)
+        heapq.heappush(r,l[i][1])
+    else:
+        heapq.heappush(r,l[i][1])
+
+print(len(r))
+
+#11000번 강의실 배정
+우선순위 큐를 사용하여 풀이
+이중리스트를 힙에 추가하는 식으로 풀었다가 틀렸습니다 나왔다;; 아마 heaqpop에서 오류가 난거같은데
+비교값을 끝나는 시간과 시작시간으로만 설정하니 풀렸다
+그래도 다시한번 풀어보자
