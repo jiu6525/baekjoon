@@ -1,0 +1,28 @@
+import sys
+input = sys.stdin.readline
+a = list(input().rstrip())
+b = list(input().rstrip())
+
+t = False
+while b:
+    if b[-1] =='A':
+        b.pop()
+    elif b[-1] =='B':
+        b.pop()
+        b.reverse()
+    if a == b:
+        t = True
+        break
+if t == True:
+    print(1)
+else:
+    print(0)
+
+#12904 A와B 
+# 문제설명에 조건으로는
+1. 끝에 'A'를 붙인다.
+2. 문자열을 뒤집고 끝에 'B'를 붙인다.
+두가지 인데 반대로 보면 b의 문자를 맨뒤가 'A'일때 제거
+'B' 일때 제거후 뒤집어서 a==b가 같은값이 나오면 설정하였던 t를 True를 만드는 식의 코드이다
+pop()함수를 통하여 b의 값을 제거할때까지 반복을 함으로 틀린값이 나오면 자동으로 반복문을 탈출하게된다
+다시풀어보자
