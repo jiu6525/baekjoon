@@ -1,0 +1,34 @@
+import sys
+input = sys.stdin.readline
+n,m = map(int, input().split())
+l = []
+for i in range(m):
+    a,b = list(map(int,input().split()))
+    l.append([a,b])
+
+a = sorted(l,key=lambda x: x[0])
+b = sorted(l,key=lambda x: x[1])
+result = 0
+
+while n >0:
+    if n >=6:
+        if b[0][1]*6 >= a[0][0]:
+            result += a[0][0]
+            n -= 6
+        else:
+            result += b[0][1]*6
+            n -= 6
+    else:
+        if b[0][1]*n >= a[0][0]:
+            result += a[0][0]
+            n -= n
+        else:
+            result += b[0][1]*n
+            n -= n
+print(result)
+
+#기타줄 교체
+n이 6 이상일떄를 생각해서 
+낱개6개가 세트보다 싼경우,비싼경우
+n이 6 이하일때
+낱개 n개가 세트보다 싼경우, 비싼경우를 조건으로 문제풀이하였다.
