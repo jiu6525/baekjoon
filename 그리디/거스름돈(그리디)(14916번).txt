@@ -1,0 +1,16 @@
+a,b= 5,2
+n = int(input())
+c = 0
+while n > 0:
+    if n % a == 0:
+        c += n//a
+        n = n % a
+    else:
+        n -= b
+        c += 1
+if n != 0:
+    print('-1')
+else:
+    print(c)
+
+#14916번 거스름돈
