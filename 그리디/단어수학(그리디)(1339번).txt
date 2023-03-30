@@ -1,0 +1,27 @@
+import sys
+imput = sys.stdin.readline
+l = [0]*26
+n = int(input())
+for j in range(n):
+    num = list(input())
+    for i in range(len(num)):
+        l[ord(num[i])-65] += 10**(len(num)-1-i)
+
+l.sort(reverse=True)
+result,e = 0,9
+
+for i in l:
+    if i == 0:
+        break
+    else:
+        result += i*e
+        e -= 1
+print(result)
+
+#어려웠던 문제
+#https://my-coding-notes.tistory.com/m/325
+이 블로그 참고하여 알파벳 자리수에 따른 10의 거듭제곱값을 리스트에 저장
+
+리스트 내림차순 정렬 후 순차적으로 숫자부여
+
+딕셔너리 사용한 풀이법으로 재풀이할것
