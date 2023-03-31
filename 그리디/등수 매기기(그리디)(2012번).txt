@@ -1,0 +1,24 @@
+import sys
+input = sys.stdin.readline
+n = int(input())
+a = []
+for i in range(n):
+    a.append(int(input()))
+a.sort()
+t = 1
+c = 0
+
+for i in range(len(a)):
+    if t != a[i]:
+        c += abs(t - a[i])
+        a[i] = t
+        t+=1
+    else:
+        t += 1
+print(c)
+
+#2012 등수 매기기
+t의 값을 1로 설정
+a를 정렬 한 뒤
+t의 증가조건을 걸고 a의 중복이 있다면 자리를 변경해주며 차이값을 c에 저장
+쉬웠음
