@@ -1,0 +1,25 @@
+import sys
+input = sys.stdin.readline
+n,m = map(int,input().split())
+a = []
+for i in range(n):    
+    a.append(int(input()))
+
+count = 0
+a.reverse() #[50000, 10000, 5000, 1000, 500, 100, 50, 10, 5, 1]
+na = [i for i in a if m>=i]     #[1000, 500, 100, 50, 10, 5, 1]
+
+for i in na:
+    if m == 0:
+        break
+    elif m >0:
+        count += m//i 
+        m = m%i
+        
+print(count)
+
+
+#동전개수찾기
+
+처음에는 while문으로 m값에서 a의 원소로 하나씩 빼는 계산을 했다가 시간초과가 나왔다.
+생각해보니 몫과 나머지만 사용할수있으면 쉽게 풀이가능
