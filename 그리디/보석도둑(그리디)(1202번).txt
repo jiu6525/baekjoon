@@ -1,0 +1,31 @@
+import heapq
+import sys
+input = sys.stdin.readline
+n,m = map(int,input().split())
+a = []
+for i in range(n):
+    heapq.heappush(a,list(map(int,input().split())))
+b = [int(input()) for i in range(m)]
+b.sort()
+
+result = 0
+t = []
+
+for i in b:
+    while a and i >= a[0][0]:
+        heapq.heappush(t,-heapq.heappop(a)[1])
+    if t:
+        result -= heapq.heappop(t)
+    elif not a:
+        break
+
+print(result)
+
+#1202 보석도둑
+최소힙 과 최대힙을 사용하여 풀이하는 문제
+보석의 종류를 힙으로 입력한 뒤, 가방의 무게를 작은순으로 정렬
+작은무게의 가방이 담을수 있는 보석의 가격을 최대힙으로 받는다
+만약 t라는 보석을 담을수있는 리스트에 값이 있다면 최소값(최대힙으로 넣었기 때문에 -를 붙여 최대값)을 result에 저장
+다음 무게 가방의 값을 추가하고 그중 더 큰값을 result에 더한다
+가방을 무게순으로 정렬하여 값을 추가하였기 때문에 뒤에 가방은 전 무게를 포함하여 계산
+할수 있기 때문에 둘중 더 큰값을 결과값에 더한다.
