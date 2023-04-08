@@ -1,0 +1,22 @@
+import sys
+input = sys.stdin.readline
+
+n = int(input())
+l = []
+for i in range(n):
+    l.append(int(input()))
+
+l.sort()
+
+result = []
+
+for i in l:
+    result.append(i*n)
+    n -=1
+
+print(max(result))
+
+
+#문제가 이해가 안되서 잘 모르겠던 문제
+이해하고나니 구현은 쉬웠음
+다시한번 풀어볼것
