@@ -1,0 +1,17 @@
+import sys
+input = sys.stdin.readline
+n = int(input())
+a = list(map(int,input().split()))
+b = list(map(int,input().split()))
+a.sort()
+b.sort(reverse=True)
+result = 0
+
+for i in range(n):
+    result += a[i] * b[i]
+
+print(result)
+
+
+#보물
+# a를 오름차순 b를 내림차순으로 변경후 곱을 result변수에 저장하여 출력하면 되는 쉬운문제
