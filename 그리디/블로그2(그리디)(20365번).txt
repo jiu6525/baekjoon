@@ -1,0 +1,16 @@
+m = int(input())
+l = list(input())
+a = {'B': 0,'R': 0}
+a[l[0]] += 1
+for i in range(1,len(l)):
+    if l[i-1] != l[i] :
+        a[l[i]] += 1
+
+result = min(a.values()) +1
+print(result)
+
+
+
+#20365 블로그 2
+딕셔너리를 사용하여 해결하였는데
+주어진 값이 b와 r뿐이여서 사전에 정의하고 문제를 해결하였다.
