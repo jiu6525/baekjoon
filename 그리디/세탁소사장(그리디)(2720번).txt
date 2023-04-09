@@ -1,0 +1,24 @@
+n = int(input())
+a = [25,10,5,1]
+c = []
+for i in range(n):
+    c.append(int(input()))
+
+for i1 in c:
+    l = [0 for i in range(len(a))]
+    for j in a:
+        r = 0
+        if i1%j ==0:
+            r += i1//j
+            l[a.index(j)] = r
+            break
+        else:
+            r = i1//j
+            i1 = i1%j
+            l[a.index(j)] = r
+    print(" ".join(map(str,l)))
+
+
+#세탁소 사장
+지금까지 배웠던 그리디 방법을 사용하여 반복문을 실행하면 되는 문제
+쉬웠다.
