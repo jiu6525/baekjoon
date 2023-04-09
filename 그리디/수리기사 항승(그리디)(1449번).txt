@@ -1,0 +1,21 @@
+n,m = map(int,input().split())
+l = list(map(int,input().split()))
+l.sort()
+start = l[0]
+end = l[0]+m
+c = 1
+for i in range(n):
+    if start <= l[i] <end:
+        continue
+    else:
+        start = l[i]
+        end = l[i]+m
+        c += 1
+
+print(c)
+
+#수리공 항승
+처음에 문제가 이해가 안되서 힘들었지만
+풀이를 보고 쉽게 풀수있었다.
+테이프를 통한 구간설정을 하는게 중요한 문제
+다시한번 풀어보자
