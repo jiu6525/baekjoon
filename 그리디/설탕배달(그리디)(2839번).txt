@@ -1,0 +1,17 @@
+n = int(input())
+result = 0
+while n > 0:
+    if n % 5 == 0:
+        result += n//5
+        print(result)
+        break
+    else:
+        n -= 3
+        result += 1
+        if n == 0:
+            print(result) 
+        elif n < 0:
+            print("-1")
+
+# 설탕배달 문제로 최소한의 값을 찾기위해 5로 나눠떨어질 경우를 기준으로 풀이, 아닐경우 -3 
+n의 값이 0이 안될경우 -1 출력하도록 작성
