@@ -1,0 +1,13 @@
+n = int(input())
+result = 0
+c = 0
+for i in range(n+1):
+    c += 1
+    result += c
+    if result > n:
+        print(c-1)
+        break
+
+#범위지정때문에 100퍼에서 틀렸습니다 나왔던 문제
+1일때 1이 나와야하지만 0이 나와서 고생했다
+다시 풀어볼것
