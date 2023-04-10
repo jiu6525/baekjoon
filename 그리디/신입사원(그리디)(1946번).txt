@@ -1,0 +1,26 @@
+import sys
+input = sys.stdin.readline
+
+n = int(input())
+for i in range(n):
+    m = int(input())
+    l = []
+    for i1 in range(m):
+        a,b = list(map(int,input().split()))
+        l.append([a,b])
+    l.sort(key=lambda x: x[0])
+    c = 1
+    g = l[0][1]
+    for i in range(len(l)):
+        if g > l[i][1]:
+            c += 1
+            g = l[i][1]
+    print(c)
+
+
+
+# 서류성적, 면접성적을 통해 합격인원을 판단하는 문제로
+서류성적을 정렬하여 서류 1등의 면접성적을 통하여 다른 사람들과 비교하였다.(서류 1등은 무조건 합격이기때문
+-> 다른 지원자보다 하나라도 높다면이 조건)
+
+문제풀이간 블로그의 도움을 살짝 빌렸다. 다시풀어보자
