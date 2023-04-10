@@ -1,0 +1,46 @@
+import sys
+input = sys.stdin.readline
+n = int(input())
+a = []
+b = []
+for i in range(n):
+    m = int(input())
+    if m >= 1:
+        a.append(m)
+    else:
+        b.append(m)
+
+a.sort(reverse=True)
+b.sort()
+plus = 0
+minus = 0
+
+if len(a) == 1:
+    plus += a[0]
+else:
+    while len(a)>0:
+        if len(a) == 1:
+            plus += a[0]
+            break
+        elif 1 in a[0:2]:
+            plus += a.pop(0)*a.pop(0)+1
+        else:
+            plus += a.pop(0)*a.pop(0)
+
+if len(b) == 1:
+    minus += b[0]
+else:
+    while len(b)>0:
+        if len(b) == 1:
+            minus += b[0]
+            break
+        else:
+            minus += b.pop(0)*b.pop(0)
+
+print(plus+minus)
+
+# 수묶기
+양수는 양수끼리
+음수는 음수끼리 의 경우를 구해 각자 곱한후 더해준다
+1,0일경우의 케이스를 고려하여 코드들 구성하였다.
+코드가 상당히 길어서 재풀이를 통해 간소화해보자
