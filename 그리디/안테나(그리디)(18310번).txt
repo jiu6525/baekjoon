@@ -1,0 +1,10 @@
+import sys
+input = sys.stdin.readline
+n = int(input())
+l = list(map(int,input().split()))
+l.sort()
+print(l[(n-1)//2])
+
+#18310 안테나
+중간값이 최소값.
+홀수일때와 짝수일떄를 고려해서 n-1을 한 후 2로 나눈 몫이 최소값의 index값이다
