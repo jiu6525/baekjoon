@@ -1,0 +1,20 @@
+r = int(input())
+for j in range(r):
+    n = int(input())
+    l = list(map(int,input().split()))
+    l.reverse()
+    max_l = l[0]
+    result = 0
+    for i in range(1,n):
+        if max_l < l[i]:
+            max_l = l[i]
+        else:
+            result += max_l-l[i]
+
+    print("#{0} {1}".format(j+1,result))
+
+#11501 주식
+처음에 접근법을 몰라서 풀지 못하였지만 풀이를 보며 값이 담겨있는 l을 뒤집은 다음에
+첫번째 자리를 max값으로 지정하였고 1부터 n까지 도는 반복문을 통하여 현재 l[i]의 값이 max값보다 클경우 max값 최신화
+아닐경우 (최대값에서 작아지는 경우) 최대값-작아지는 값을 하여 result에 더해줬다
+시간지나고 다시 풀어보자
