@@ -1,0 +1,16 @@
+n = int(input())
+r = list(map(int,input().split()))
+l = list(map(int,input().split()))
+m = l[0]
+result = 0
+
+for i in range(n-1):
+    if m > l[i]:
+        m = l[i]
+    result += m * r[i]
+
+print(result)
+
+#13305 주유소
+멘탈 붐
+다시 풀어보자
