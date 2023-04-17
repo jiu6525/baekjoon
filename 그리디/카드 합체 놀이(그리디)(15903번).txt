@@ -1,0 +1,17 @@
+import heapq,sys
+input = sys.stdin.readline
+
+n,m = map(int,input().split())
+l = list(map(int,input().split()))
+
+heapq.heapify(l)
+for i in range(m):
+    a = heapq.heappop(l) + heapq.heappop(l)
+    heapq.heappush(l,a)
+    heapq.heappush(l,a)
+print(sum(l))
+
+#15903 카드합체놀이
+우선순위 큐를 사용하여 풀이하였다.
+입력받은 후 pop을 통해 작은값 두개 추출값을 더한후 2번 추가
+m값만큼 반복후 sum하여 출력
