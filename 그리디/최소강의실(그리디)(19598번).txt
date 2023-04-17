@@ -1,0 +1,18 @@
+import heapq,sys
+input = sys.stdin.readline
+n = int(input())
+l = [list(map(int,input().split())) for i in range(n)]
+l.sort(key=lambda x:x[0])
+
+result = []
+for i in range(len(l)):
+    if result and result[0] <= l[i][0]:
+        heapq.heappop(result)
+    heapq.heappush(result,l[i][1])
+
+print(len(result))
+
+#19598 최소 회의실 개수
+처음에 끝나는 시간으로 정렬하여 풀어서 틀렸다고 나왔다.
+시작하는 시간으로 정렬하여 우선순위 큐를 사용한다면 쉽게 풀수있다.
+다시 풀어보자
