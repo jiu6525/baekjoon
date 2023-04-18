@@ -1,0 +1,15 @@
+i = 1
+while 1:
+    result = 0
+    a = list(map(int,input().split()))
+    if a[0] == 0:
+        break
+    else:
+        result1 = (a[2]//a[1])*a[0]
+        result += min(a[2]%a[1],a[0])+result1
+        print("Case {0}: {1}".format(i,result))
+        i+=1
+
+# 캠핑
+#값을 입력받은 후 계산하면 끝나는 문제
+쉬움
