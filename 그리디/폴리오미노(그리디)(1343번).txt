@@ -1,0 +1,10 @@
+a = input()
+a = a.replace("XXXX", "AAAA")
+a = a.replace("XX", "BB")
+if a.count('X') >= 1:
+    a = -1
+print(a)
+
+#1343 폴리오미노
+#어렵게 접근하면 어렵지만 쉬운방법으로 풀수있는문제
+다시풀어보자
