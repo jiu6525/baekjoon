@@ -1,0 +1,22 @@
+l = list(input())
+r = {}
+l.sort()
+result1 = "" 
+result2 = ""    
+for i in l:
+    if i in r:
+        r[i] += 1
+    else:
+        r[i] = 1
+
+for i,j in r.items():
+    if j%2!=0:
+        result2+= i
+        if len(result2)>=2:
+            print("I'm Sorry Hansoo")
+            exit()
+
+for i,j in r.items():
+    result1 += i*(j//2)
+
+print(result1+result2+result1[::-1])
