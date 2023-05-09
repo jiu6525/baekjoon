@@ -1,0 +1,33 @@
+n = int(input())
+rn=int(input())
+l = [[0]*n for i in range(n)]
+di = [1,0,-1,0]
+dj = [0,1,0,-1]
+d = 0
+c = n*n
+x,y = 0,0
+l[x][y] = c
+
+
+while 1:
+    if c == rn:
+        ri,rj = x+1,y+1
+    if c ==1:
+        break
+    dx = x + di[d]
+    dy = y + dj[d]
+
+    if dx<0 or dy<0 or dx>=n or dy>=n:
+        d = (d+1)%4
+        continue
+    elif l[dx][dy]:
+        d = (d+1)%4
+        continue
+    c -= 1
+    l[dx][dy] = c
+    x,y = dx,dy
+
+
+for i in l:
+    print(' '.join(map(str,i)))
+print(ri,rj)
