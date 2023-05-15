@@ -1,0 +1,12 @@
+from itertools import combinations
+l = []
+for i in range(9):
+    l.append(int(input()))
+
+for j in list(map(list,combinations(l,7))):
+    if sum(j) == 100:
+        result = j
+
+result.sort()
+for i1 in range(7):
+    print(result[i1])
