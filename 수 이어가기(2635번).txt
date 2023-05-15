@@ -1,0 +1,22 @@
+def ck(n):
+    if n==0:
+        return t
+    elif n==1:
+        return i
+    return ck(n-2)-ck(n-1)
+
+t = int(input())
+
+result = []
+
+for i in range(t,-1,-1):
+    l = []
+    cnt = 0
+    while ck(cnt)>=0:
+        l.append(ck(cnt))
+        cnt+=1
+    if len(l)>len(result):
+        result = l
+
+print(len(result))
+print(*result)
