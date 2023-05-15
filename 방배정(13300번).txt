@@ -1,0 +1,21 @@
+def ck(l,ge):
+    cnt = 0
+    for i in ge:
+        a = l.count(i)
+        cnt += a//k
+        if a%k>0:
+            cnt += 1
+    return cnt
+
+n,k = map(int,input().split())
+man, woman = [],[]
+for i in range(n):
+    s,y = map(int,input().split())
+    if s:
+        man.append(y)
+    else:
+        woman.append(y)
+
+    m = list(set(man))
+    w = list(set(woman))
+print(ck(man,m)+ck(woman,w))
