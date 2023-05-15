@@ -1,0 +1,14 @@
+n = int(input())
+for i0 in range(n):
+    al = list(map(int,input().split()))[1:]
+    bl = list(map(int,input().split()))[1:]
+    
+    for i in range(4,0,-1):
+        if al.count(i) > bl.count(i):
+            print("A")
+            break
+        elif al.count(i) < bl.count(i):
+            print("B")
+            break
+        if i == 1:
+            print("D")
