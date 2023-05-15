@@ -1,0 +1,25 @@
+n,m = map(int,input().split())
+k = int(input())
+if k>n*m:
+    print(0)
+else:        
+    arr = [[0]*(m) for _ in range(n)]
+    x,y,d = 0,0,0
+    cnt = 1
+    arr[0][0] = cnt
+    di = [0,1,0,-1]
+    dj = [1,0,-1,0]
+    while cnt < k:
+        dx = x+di[d]
+        dy = y+dj[d]
+        if dx<0 or dy<0 or dx>=n or dy>=m:
+            d = (d+1)%4
+            continue
+        if arr[dx][dy]:
+            d = (d+1)%4
+            continue
+        cnt += 1
+        arr[dx][dy] = cnt
+        x,y = dx,dy
+    print(x+1,y+1)
+    
