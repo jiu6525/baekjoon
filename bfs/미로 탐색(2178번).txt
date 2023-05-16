@@ -1,0 +1,23 @@
+from collections import deque
+def dfs(si,sj):
+    q = deque([(si,sj)])
+    di = [-1,1,0,0]
+    dj = [0,0,-1,1]
+    while q:
+        x,y = q.popleft()
+        for i in range(4):
+            ni = x+di[i]
+            nj = y+dj[i]
+            if ni<0 or nj<0 or ni>=n or nj>=m:
+                continue
+            if not l[ni][nj]:
+                continue
+            if l[ni][nj]==1:
+                l[ni][nj] = l[x][y] + 1
+                q.append([ni,nj])
+
+    return l[n-1][m-1]
+
+n,m = map(int,input().split())
+l = [list(map(int,input())) for _ in range(n)]
+print(dfs(0,0))
