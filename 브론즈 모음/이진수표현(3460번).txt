@@ -1,0 +1,7 @@
+t = int(input())
+for i0 in range(1,t+1):
+    n = int(input())
+    r = list(map(int,bin(n)[2:][::-1]))
+    for i in range(len(r)):
+        if r[i]:
+            print(i, end=" ")
