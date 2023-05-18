@@ -1,0 +1,53 @@
+alpa = {'A':0,'B':1,'C':2,'D':3,'E':4,'F':5,'G':6,'H':7}
+d = {'R':[0,1],'L':[0,-1],'T':[1,0],'B':[-1,0],'RB':[-1,1],'LB':[-1,-1],'RT':[1,1],'LT':[1,-1]}
+k,s,n = input().split()
+
+k,s = list(k),list(s)
+for i,j in alpa.items():
+    if k[0] == i:
+        k[0]=j
+    if s[0] == i:
+        s[0] = j
+
+kx,ky = list(map(int,k))
+sx,sy = list(map(int,s))
+
+kx,ky,sx,sy = ky-1,kx,sy-1,sx
+arr = [[0]*8 for _ in range(8)]
+king = 1
+stone = 2
+arr[kx][ky] = king
+arr[sx][sy] = stone
+mv = []
+for i in range(int(n)):
+    mv.append(input())
+
+for i in mv:
+    x,y=d[i]
+    nx,ny = kx+x,ky+y
+    if nx<0 or ny<0 or nx>=8 or ny>=8:
+        continue
+    if arr[nx][ny] == stone:
+        nxs,nxy = nx+x,ny+y
+        if nxs<0 or nxy<0 or nxs>=8 or nxy>=8:
+            continue
+        else:
+            arr[kx][ky] = 0
+            arr[sx][sy] = 0
+            arr[nxs][nxy] = stone
+            arr[nx][ny] = king
+            kx,ky = nx,ny
+            sx,sy = nxs,nxy
+
+    else:
+        arr[kx][ky] = 0
+        arr[nx][ny] = king
+        kx,ky = nx,ny
+for i,j in alpa.items():
+    if sy == j:
+        sy = i
+    if ky == j:
+        ky = i
+
+print(ky+str(kx+1))
+print(sy+str(sx+1))
