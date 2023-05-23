@@ -1,0 +1,7 @@
+#10813.공 바꾸기
+n,m = map(int,input().split())
+l = [0]+[i for i in range(1,n+1)]
+for i in range(m):
+    a,b = map(int,input().split())
+    l[a],l[b] = l[b],l[a]
+print(*l[1:])
