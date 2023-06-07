@@ -8,8 +8,6 @@ def solution(s):
             if len(stack) == 0:
                 return False
             else:
-                t = stack.pop()
-                if t != match[c]:
-                    return False
+                stack.pop()
     answer = True if not bool(len(stack)) else False
     return answer
