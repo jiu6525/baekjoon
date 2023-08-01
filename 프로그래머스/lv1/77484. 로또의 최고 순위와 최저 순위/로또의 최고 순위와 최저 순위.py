@@ -5,6 +5,5 @@ def solution(lottos, win_nums):
         for j in win_nums:
             if i==j:
                 count += 1
-    zero = lottos.count(0)
-    result = [lotto[count+zero],lotto[count]]
-    return result
+                
+    return [lotto[count+lottos.count(0)],lotto[count]]
