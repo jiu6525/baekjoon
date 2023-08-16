@@ -1,14 +1,4 @@
-def solution(my_string):
-    answer = 0
-    num = ""
-    for i in my_string:
-        if not i.isalpha():
-            num += i
-            continue
-        if num:
-            answer += int(num)
-            num = ""
-    if num:
-        answer += int(num)
+import re
 
-    return answer
+def solution(my_string):
+    return sum([int(i) for i in re.findall(r'[0-9]+', my_string)])
