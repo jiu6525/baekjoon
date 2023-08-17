@@ -1,7 +1,2 @@
 def solution(s):
-    answer = []
-    r = set(s)
-    for i in r:
-        if s.count(i) == 1:
-            answer += i
-    return "".join(sorted(answer))
+    return "".join(sorted([i for i in set(s) if s.count(i) == 1]))
