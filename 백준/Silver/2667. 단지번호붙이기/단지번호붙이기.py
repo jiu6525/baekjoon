@@ -20,17 +20,14 @@ def dfs(x,y):
     return False,count
 
 count = 0 
-result = 0
 answer = []
 for i in range(n):
     for j in range(n):
-        if dfs(i,j) == True:
-            result += 1
+        dfs(i,j)
         if count:
             answer.append(count)
             count = 0
-
-print(result)
+print(len(answer))
 answer.sort()
 for i in answer:
     print(i)
