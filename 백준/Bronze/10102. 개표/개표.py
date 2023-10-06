@@ -1,0 +1,5 @@
+n = int(input())
+lst = list(input())
+a,b = lst.count("A"),lst.count("B")
+ans = "A" if a>b else ("B" if b>a else "Tie")
+print(ans)
