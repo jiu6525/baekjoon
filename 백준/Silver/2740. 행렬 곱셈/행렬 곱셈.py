@@ -17,3 +17,6 @@ for N in range(n):
 
 for i in ans:
     print(*i)
+
+# 행렬의 곱셈
+# n*m * m*k 는 n*k 이다
