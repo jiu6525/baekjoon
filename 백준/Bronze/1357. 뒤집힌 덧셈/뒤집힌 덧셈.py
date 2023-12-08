@@ -1,0 +1,5 @@
+x,y = map(int,input().split())
+x = int("".join(list(str(x))[::-1]))
+y = int("".join(list(str(y))[::-1]))
+ans = int("".join(list(str(x+y))[::-1]))
+print(ans)
