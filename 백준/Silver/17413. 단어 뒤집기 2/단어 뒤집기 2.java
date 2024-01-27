@@ -1,12 +1,7 @@
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Stack;
-
-// 스택을 사용
-// 공백이라면 저장한 word 의 내용을 비우고 스택에 추가
-// <를 만났다면 >를 만날때까지 단어 저장하기 -> check 를 통해 값 확인
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -44,3 +39,11 @@ public class Main {
         System.out.println(ans);
     }
 }
+// 스택을 사용
+// 공백이라면 저장한 word 의 내용을 비우고 스택에 추가
+// <를 만났다면 >를 만날때까지 단어 저장하기 -> check 를 통해 값 확인
+
+//1. 공백을 만난다면 스택이 빌때까지 정답에 값 누적
+//2. < 를 만난다면 스택이 빌때까지 정답에 값 누적 check 를 true 로 변경
+//3. > 만날대까지 값 누적 후 만난다면 값 false 로 변경
+//4. 아무 조건도 없다면 스택에 값 누적
