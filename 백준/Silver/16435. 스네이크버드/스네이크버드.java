@@ -1,34 +1,38 @@
-import java.io.*;
-import java.util.Arrays;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
 
 public class Main {
-	private static int N, L;
-	private static int[] heights;
-	
-	public static void main(String[] args) throws Exception {
-		//System.setIn(new FileInputStream("input.txt"));
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		String[] input = br.readLine().split(" ");
-		N = Integer.parseInt(input[0]);
-		L = Integer.parseInt(input[1]);
-		heights = new int[N];
-		input = br.readLine().split(" ");
-		for (int i=0; i<N; i++) {
-			heights[i] = Integer.parseInt(input[i]);
-		}
-		
-		// heights 정렬
-		Arrays.sort(heights);
-		for (int i=0; i<N; i++) {
-			// 먹을 수 있는 조건 => 높이가 스네이크버드의 길이보다 작거나 같은 경우
-			if (heights[i] <= L) {
-				L += 1; // 스네이크 버드의 길이 증가
-			} else {
-				// 이 부분에 들어온다면 먹을 수 없는 경우
-				break; // 루프 종료
-			}
-		}
-		System.out.println(L);
-	}
+    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    static StringTokenizer st;
+    static StringBuilder sb;
+    static int[] arr;
+    static int t;
+    public static void main(String[] args) throws IOException {
+        st = new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
+        arr = new int[n];
+
+        st = new StringTokenizer(br.readLine());
+        for (int i = 0; i < n; i++) {
+            arr[i] = Integer.parseInt(st.nextToken());
+        }
+
+        Arrays.sort(arr);
+        for(int i = 0; i< n; i++){
+            if(arr[i]<=m){
+                m++;
+            }else{
+                break;
+            }
+        }
+
+        System.out.println(m);
+    }
+
 
 }
+
+//3 5 9
