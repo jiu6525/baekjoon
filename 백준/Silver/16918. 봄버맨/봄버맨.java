@@ -1,7 +1,10 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
+// ㅊ
 public class Main {
     static StringTokenizer st;
     static int n, m, k;
@@ -32,7 +35,7 @@ public class Main {
             Arrays.fill(bomb2[i],"O");
         }
 
-        if (k <= 1) {
+        if (k == 1) {
             print(arr);
         } else if (k % 2 == 0) {
             print(real);
