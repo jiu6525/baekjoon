@@ -27,67 +27,48 @@ public class Main {
         String[][] bomb2 = new String[n][m];
 
         for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                real[i][j] = "O";
-                bomb1[i][j] = "O";
-                bomb2[i][j] = "O";
-            }
+            Arrays.fill(real[i],"O");
+            Arrays.fill(bomb1[i],"O");
+            Arrays.fill(bomb2[i],"O");
         }
 
         if (k <= 1) {
-            for (String[] lst1 : arr) {
-                System.out.println(String.join("", lst1));
-            }
+            print(arr);
         } else if (k % 2 == 0) {
-            for (String[] lst2 : real) {
-                System.out.println(String.join("", lst2));
-            }
+            print(real);
         } else {
-            for (int i = 0; i < n; i++) {
-                for (int j = 0; j < m; j++) {
-                    if (arr[i][j].equals("O")) {
-                        bomb1[i][j] = ".";
-                        for (int l = 0; l < dir.length; l++) {
-                            int dx = i + dir[l][0];
-                            int dy = j + dir[l][1];
-                            if (dx < 0 || dy < 0 || dx >= n || dy >= m) {
-                                continue;
-                            }
-                            bomb1[dx][dy] = ".";
+            getBoard(arr, bomb1);
+            getBoard(bomb1, bomb2);
+            if (k % 4 == 3){
+                print(bomb1);
+            }
+            if (k % 4 == 1){
+                print(bomb2);
+            }
+        }
+    }
+
+    private static void print(String[][] arr) {
+        for (String[] lst1 : arr) {
+            System.out.println(String.join("", lst1));
+        }
+    }
+
+    private static void getBoard(String[][] bomb1, String[][] bomb2) {
+        for (int i1 = 0; i1 < n; i1++) {
+            for (int j1 = 0; j1 < m; j1++) {
+                if (bomb1[i1][j1].equals("O")) {
+                    bomb2[i1][j1] = ".";
+                    for (int l = 0; l < dir.length; l++) {
+                        int dx = i1 + dir[l][0];
+                        int dy = j1 + dir[l][1];
+                        if (dx < 0 || dy < 0 || dx >= n || dy >= m) {
+                            continue;
                         }
+                        bomb2[dx][dy] = ".";
                     }
                 }
             }
-
-            for (int i1 = 0; i1 < n; i1++) {
-                for (int j1 = 0; j1 < m; j1++) {
-                    if (bomb1[i1][j1].equals("O")) {
-                        bomb2[i1][j1] = ".";
-                        for (int l = 0; l < dir.length; l++) {
-                            int dx = i1 + dir[l][0];
-                            int dy = j1 + dir[l][1];
-                            if (dx < 0 || dy < 0 || dx >= n || dy >= m) {
-                                continue;
-                            }
-                            bomb2[dx][dy] = ".";
-                        }
-                    }
-                }
-            }
-
-
-        if (k % 4 == 3){
-            for (String[] lst3 : bomb1) {
-                System.out.println(String.join("", lst3));
-            }
-        }
-
-        if (k % 4 == 1){
-            for (String[] lst4 : bomb2) {
-                System.out.println(String.join("", lst4));
-            }
-        }
-
         }
     }
 }
