@@ -58,8 +58,6 @@ public class Main {
 				}
 				
 			}
-			
-//			int dx = 
 		}
 	}
     
