@@ -1,138 +1,127 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.Arrays;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.util.Scanner;
 
 public class Main {
-    static BufferedReader br;
-    static StringTokenizer st;
-    static int n,m,k, min = Integer.MAX_VALUE;
-    static int[][] real_arr,arr, r;
-    static List<int[]> lst = new ArrayList<>();
-    static int[][] dir = {{1,0},{0,1},{-1,0},{0,-1}};
-    static int d = 0;
+	static int N,M,K, Ans = Integer.MAX_VALUE;
+	static int[][] map, command;
+	public static void main(String[] args) throws FileNotFoundException {
+		//System.setIn(new FileInputStream("src/jiu/Main.txt"));
+		Scanner sc = new Scanner(System.in);
+		N = sc.nextInt();
+		M = sc.nextInt();
+		K = sc.nextInt();
+		map = new int[N][M];
+		
+		for (int r = 0; r < N; r++) {
+			for (int c = 0; c < M; c++) {
+				map[r][c] = sc.nextInt();
+			}
+		}
+		
+//		print(map);
+		
+		command = new int[K][3];
+		for (int k = 0; k < K; k++) {
+			command[k] = new int[] {sc.nextInt()-1, sc.nextInt()-1, sc.nextInt()};
+		}
+		
+//		print(command);
+//		순열
+		permutation(0,new int[K], new boolean[K]);
+		
+		System.out.println(Ans);
+	}
+	private static void permutation(int idx, int[] sel, boolean[] v) {
+//		basis part
+		if(idx == sel.length) {
+// 			명령어 순열이 sel[] 에 저장되어서 온다.
+//			sel[] 로 배열을 돌려라
+//			System.out.println(Arrays.toString(sel);
+			int value = solve(sel);
+			Ans = Math.min(Ans, value);
+			return ;
+		}
+		
+//		inductive part
+		for (int i = 0; i < K; i++) {
+			if(!v[i]) {
+				v[i] = true;
+				sel[idx] = i;
+				permutation(idx+1, sel, v);
+				v[i] = false;
+			}
+		}
+		
+	}
+	private static int solve(int[] sel) {
+//		배열 복사
+		int[][] tmap = new int[map.length][map[0].length];
+		for (int i = 0; i < tmap.length; i++) {
+			tmap[i] = Arrays.copyOf(map[i], map[i].length);
+		}
+//		print(tmap);
+//		sel[] 수만클 돌려라
+		for (int i = 0; i < sel.length; i++) {
+//			System.out.println(Arrays.toString(command[sel[i]]));
+//			시작점, 종료점
+//			r + s, c + s -> r - s, c - s
+			int osr = command[sel[i]][0] - command[sel[i]][2];
+			int osc = command[sel[i]][1] - command[sel[i]][2];
+			int oer = command[sel[i]][0] + command[sel[i]][2];
+			int oec = command[sel[i]][1] + command[sel[i]][2];
 
-    public static void main(String[] args) throws Exception {
-        br = new BufferedReader(new InputStreamReader(System.in));
-        st = new StringTokenizer(br.readLine());
-        n = Integer.parseInt(st.nextToken());
-        m = Integer.parseInt(st.nextToken());
-        k = Integer.parseInt(st.nextToken());
-
-        real_arr = new int[n][m];
-        arr = new int[n][m];
-
-        for (int i = 0; i < n; i++) {
-            st = new StringTokenizer(br.readLine());
-            for (int j = 0; j < m; j++) {
-                real_arr[i][j] = Integer.parseInt(st.nextToken());
-            }
-        }
-
-//        print(arr);
-
-        r = new int[k][3];
-
-        for (int i = 0; i < k; i++) {
-            st = new StringTokenizer(br.readLine());
-            for (int j = 0; j < 3; j++) {
-                r[i][j] = Integer.parseInt(st.nextToken());
-            }
-        }
-
-
-//        print(r);
-
-        permutation(0, new int[k], new boolean[k]);
-
-        for (int[] ls : lst) {
-            reset();
-            for (int l : ls) {
-                rotate(r[l]);
-            }
-            check_sum(arr);
-        }
-
-        System.out.println(min);
-
-    }
-
-    private static void check_sum(int[][] arr) {
-        for (int[] lst : arr) {
-            int res = 0;
-            for (int i : lst) {
-                res += i;
-            }
-            min = Math.min(min,res);
-        }
-    }
-
-    private static void rotate(int[] lst) {
-        int r = lst[0]-1;
-        int c = lst[1]-1;
-        int s = lst[2];
-//      (r,c,s) -> (3,4,2)
-//        [r-s][c-s] ~ [r+s][c+s]
-        int sx = r - s, sy = c - s;
-        int ex = r + s, ey = c + s;
-
-        int group = s;
-        for (int i = 0; i < group; i++) {
-            int x = sx + i;
-            int y = sy + i;
-            d = 0;
-            int tmp = arr[x][y];
-            while (d < 4) {
-                int nx = x + dir[d][0];
-                int ny = y + dir[d][1];
-                if (nx >= sx + i && nx <= ex - i && ny >= sy + i && ny <= ey - i) {
-                    arr[x][y] = arr[nx][ny];
-                    x = nx;
-                    y = ny;
-                } else {
-                    d++;
-                }
-            }
-            arr[x][y + 1] = tmp;
-        }
-    }
-
-    private static void reset() {
-        for (int i = 0; i < n; i++) {
-            arr[i] = real_arr[i].clone();
-        }
-
-    }
-
-    public static void permutation(int cnt, int[] numbers, boolean[] visited) {
-        if(cnt == k) {
-            lst.add(numbers.clone());
-            return;
-        }
-        for(int i=0; i<k; i++) {
-            if(visited[i]) continue;
-            visited[i] = true;
-            numbers[cnt] = i;
-            permutation(cnt+1, numbers, visited);
-            visited[i] = false;
-        }
-    }
-
-    private static void print(int[][] arr) {
-        for (int[] lst : arr) {
-            System.out.println(Arrays.toString(lst));
-        }
-        System.out.println();
-    }
-
+//			몇단계 돌려야 하나
+			int step = Math.min(oer-osr, oec-osc)/2;
+			
+			for (int d = 0; d < step; d++) {
+				int sr = osr + d;
+				int sc = osc + d;
+				int er = oer - d;
+				int ec = oec - d;
+				
+				int dir = 0;
+//				초기값 복사
+				int tmp = tmap[osr+d][osc+d];
+				while(dir < 4) {
+					int nr = sr + dr[dir];
+					int nc = sc + dc[dir];
+					// 경계선 체크
+					if(nr>=osr+d && nr<=oer-d && nc>=osc+d && nc<=oec-d) {
+						tmap[sr][sc] = tmap[nr][nc];
+						sr = nr;
+						sc = nc;
+					}else {
+						dir++;
+					}
+				}
+//				저장해 놨던 초기값을 마지막 칸에 복사한다.
+				tmap[osr+d][osc+d+1] = tmp;
+			}
+		}
+//		for (int[] is : tmap) {
+//			System.out.println(Arrays.toString(is));
+//		}
+//		System.out.println();
+//		최소값 구하기
+		int min = Integer.MAX_VALUE;
+		for (int r = 0; r < tmap.length; r++) {
+			int tmp = 0;
+			for (int c = 0; c < tmap[r].length; c++) {
+				tmp = tmp + tmap[r][c];
+			}
+			min = Math.min(min, tmp);
+		}
+		return min;
+	}
+	static int dr[] = {1,0,-1,0};
+	static int dc[] = {0,1,0,-1};
+	private static void print(int[][] arr) {
+		for (int[] lst : arr) {
+			System.out.println(Arrays.toString(lst));
+		}
+		System.out.println();
+	}
 }
-//5 6 2
-//1 2 3 2 5 6
-//3 8 7 2 1 3
-//8 2 3 1 4 5
-//3 4 5 1 1 1
-//9 3 2 1 4 3
-//3 4 2
-//4 2 1
