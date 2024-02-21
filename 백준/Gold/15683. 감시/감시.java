@@ -67,7 +67,6 @@ public class Main {
         dfs(0,new ArrayList<>());
 
         System.out.println(ans);
-
     }
 
 // dfs 에서 0도 90도 180도 270 회전을 연산하여 정답 갱신 n값과 임시 배열 전달
@@ -129,21 +128,12 @@ public class Main {
             return ;
         }
 
-        tmp.add(0);
-        dfs(depth+1,tmp);
-        tmp.remove(tmp.size()-1);
-
-        tmp.add(1);
-        dfs(depth+1,tmp);
-        tmp.remove(tmp.size()-1);
-
-        tmp.add(2);
-        dfs(depth+1,tmp);
-        tmp.remove(tmp.size()-1);
-
-        tmp.add(3);
-        dfs(depth+1,tmp);
-        tmp.remove(tmp.size()-1);
+//      0,1,2,3 의 방향 만큼
+        for (int direction = 0; direction < 4; direction++) {
+            tmp.add(direction);
+            dfs(depth + 1, tmp);
+            tmp.remove(tmp.size() - 1);
+        }
     }
 
     private static void print(int[][] map) {
