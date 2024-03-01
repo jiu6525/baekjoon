@@ -123,12 +123,9 @@ public class Main {
     }
 
     private static void cornerCheck(int i, int j) {
-        int dx = i;
-        int dy = j;
-
         for (int[] d : dir) {
-            int nx = dx + d[0];
-            int ny = dy + d[1];
+            int nx = i + d[0];
+            int ny = j + d[1];
 
             if (!check(nx, ny)) {
                 continue;
@@ -180,7 +177,6 @@ public class Main {
     }
 
     private static boolean union(int from, int to) {
-
         int a = find(from);
         int b = find(to);
         if(a == b){
