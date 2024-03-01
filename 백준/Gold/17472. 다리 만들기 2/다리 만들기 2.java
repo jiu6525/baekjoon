@@ -2,10 +2,8 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    static class Node implements Comparable<Node>{
-        int from;
-        int to;
-        int weight;
+    static class Node implements Comparable<Node> {
+        int from, to, weight;
 
         public Node(int from, int to, int weight) {
             this.from = from;
@@ -14,50 +12,32 @@ public class Main {
         }
 
         @Override
-        public String toString() {
-            return "Node{" +
-                    "from=" + from +
-                    ", to=" + to +
-                    ", weight=" + weight +
-                    '}';
-        }
-
-        @Override
         public int compareTo(Node o) {
-            return Integer.compare(this.weight,o.weight);
+            return Integer.compare(this.weight, o.weight);
         }
     }
-    static class Corner{
-        int x;
-        int y;
-        int num;
+
+    static class Corner {
+        int x, y, num;
 
         public Corner(int x, int y, int num) {
             this.x = x;
             this.y = y;
             this.num = num;
         }
-
-        @Override
-        public String toString() {
-            return "Corner{" +
-                    "x=" + x +
-                    ", y=" + y +
-                    ", num=" + num +
-                    '}';
-        }
     }
+
     static BufferedReader br;
     static StringTokenizer st;
-    static int n,m,V,E,ans;
-    static int[][] arr;
+    static int n, m, V, E, ans, nodeCnt;
+    static int[][] arr, dir = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+    ;
     static int cnt = 2;
-    static int nodeCnt;
-    static int[][] dir = {{-1,0},{0,1},{1,0},{0,-1}};
     static int[] set;
     static boolean[][] v;
     static List<Corner> corner_lst;
     static List<Node> edgeList;
+
     public static void main(String[] args) throws IOException {
         br = new BufferedReader(new InputStreamReader(System.in));
         st = new StringTokenizer(br.readLine());
@@ -78,77 +58,62 @@ public class Main {
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                if(arr[i][j] == 1){
-                    dfs(i,j);
+                if (arr[i][j] == 1) {
+                    dfs(i, j);
                     cnt++;
                 }
             }
         }
 
-//        print(arr);
-
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                if(arr[i][j] !=0 && !v[i][j]){
-                    cornerCheck(i,j);
+                if (arr[i][j] != 0 && !v[i][j]) {
+                    cornerCheck(i, j);
                 }
             }
         }
-//
-//        for (Corner lst  : corner_lst) {
-//            System.out.println(lst + "\t");
-//        }
 
         makeEdgeList();
-
         Collections.sort(edgeList);
-//        for (Node node : edgeList) {
-//            System.out.println(node);
-//        }
-        V = cnt-2;
+        V = cnt - 2;
         E = edgeList.size();
         makeSet();
-        ans = union_find();
-//        System.out.println();
-        System.out.println(nodeCnt != V-1 ? -1 : (ans == 0 ? -1 : ans));
+        ans = kruskal();
+        System.out.println(nodeCnt != V - 1 ? -1 : (ans == 0 ? -1 : ans));
     }
-
 
     private static void makeEdgeList() {
         for (int i = 0; i < corner_lst.size(); i++) {
-            for (int j = i+1; j < corner_lst.size(); j++) {
+            for (int j = i + 1; j < corner_lst.size(); j++) {
                 Corner island1 = corner_lst.get(i);
                 Corner island2 = corner_lst.get(j);
+                getDistance(island1.x, island2.x, Math.min(island1.y, island2.y), Math.max(island1.y, island2.y),
+                        island1.num - 2, island2.num - 2, true);
+                getDistance(island1.y, island2.y, Math.min(island1.x, island2.x), Math.max(island1.x, island2.x),
+                        island1.num - 2, island2.num - 2, false);
+            }
+        }
+    }
 
-                if(island1.x == island2.x && island1.num != island2.num){
-                    if(bridgeCheck(island1.x,Math.min(island1.y,island2.y),Math.max(island1.y,island2.y),true)){ // 우
-                        int dis = Math.abs(island1.y - island2.y)-1;
-                        if(dis>=2){
-                            edgeList.add(new Node(island1.num-2, island2.num-2, dis));
-                        }
-                    }
-                }
-
-                if(island1.y == island2.y && island1.num != island2.num){
-                    if(bridgeCheck(island1.y,Math.min(island1.x,island2.x),Math.max(island1.x,island2.x),false)){     //위
-                        int dis = Math.abs(island1.x - island2.x)-1;
-                        if(dis>=2){
-                            edgeList.add(new Node(island1.num-2, island2.num-2, dis));
-                        }
-                    }
+    private static void getDistance(int x, int nx, int y, int ny, int num1, int num2, boolean ck) {
+        if (x == nx && num1 != num2) {
+            if (bridgeCheck(x, y, ny, ck)) {
+                int dis = Math.abs(y - ny) - 1;
+                if (dis >= 2) {
+                    edgeList.add(new Node(num1, num2, dis));
                 }
             }
         }
     }
 
-    private static boolean bridgeCheck(int x, int dy, int ny , boolean direction) {
-        for (int i = dy+1; i < ny; i++) {
-            if(direction){
-                if(arr[x][i] != 0){
+    private static boolean bridgeCheck(int x, int dy, int ny, boolean direction) {
+        for (int i = dy + 1; i < ny; i++) {
+            if (direction) {
+                if (arr[x][i] != 0) {
                     return false;
                 }
-            }else{
-                if(arr[i][x] != 0){
+            } else {
+                if (arr[i][x] != 0) {
                     return false;
                 }
             }
@@ -156,6 +121,7 @@ public class Main {
         return true;
 
     }
+
     private static void cornerCheck(int i, int j) {
         int dx = i;
         int dy = j;
@@ -164,41 +130,41 @@ public class Main {
             int nx = dx + d[0];
             int ny = dy + d[1];
 
-            if(!check(nx,ny)){
+            if (!check(nx, ny)) {
                 continue;
             }
 
-            if(arr[nx][ny] == 0 && !v[i][j]){
+            if (arr[nx][ny] == 0 && !v[i][j]) {
                 v[i][j] = true;
-                corner_lst.add(new Corner(i,j,arr[i][j]));
+                corner_lst.add(new Corner(i, j, arr[i][j]));
             }
         }
     }
 
     private static void dfs(int i, int j) {
-        if(check(i,j)){
-            if(arr[i][j] == 1){
+        if (check(i, j)) {
+            if (arr[i][j] == 1) {
                 arr[i][j] = cnt;
 
-                dfs(i,j+1);
-                dfs(i+1,j);
-                dfs(i,j-1);
-                dfs(i-1,j);
+                dfs(i, j + 1);
+                dfs(i + 1, j);
+                dfs(i, j - 1);
+                dfs(i - 1, j);
             }
         }
     }
 
     private static boolean check(int i, int j) {
-        if(i<0 || i>=n || j<0 || j>=m){
+        if (i < 0 || i >= n || j < 0 || j >= m) {
             return false;
         }
         return true;
     }
 
-    private static int union_find() {
+    private static int kruskal() {
+        makeSet();
         nodeCnt = 0;
         int ans = 0;
-
         for (Node node : edgeList) {
             if(!union(node.from, node.to)){
                 continue;
@@ -210,17 +176,17 @@ public class Main {
                 break;
             }
         }
-
         return ans;
     }
 
     private static boolean union(int from, int to) {
+
         int a = find(from);
         int b = find(to);
-
         if(a == b){
             return false;
         }
+
         set[a] = b;
         return true;
     }
@@ -237,11 +203,5 @@ public class Main {
             return set[from];
         }
         return set[from] = find(set[from]);
-    }
-
-    private static void print(int[][] arr) {
-        for (int[] lst : arr) {
-            System.out.println(Arrays.toString(lst));
-        }
     }
 }
