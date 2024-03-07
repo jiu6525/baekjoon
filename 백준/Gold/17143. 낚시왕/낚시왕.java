@@ -31,14 +31,12 @@ public class Main {
                 return Integer.compare(this.c, o.c);
         }
     }
-
     static BufferedReader br;
     static StringTokenizer st;
     static int R,C,M,ans;
     static int[][] arr;
     static PriorityQueue<Shark> pq;
     static Queue<Shark> q;
-
     //                            위       아래   오    왼
     static int[][] dir = {{-1,0},{1,0},{0,1},{0,-1}};
     public static void main(String[] args) throws IOException {
@@ -92,35 +90,34 @@ public class Main {
             }
             move();
             // r과 c가 같은 Shark 중에서 z가 큰 것을 남기고 작은 것을 제거
-            removeDuplicateRC();
+            duplicateRC();
 //            print();
         }
 //        print();
-
         System.out.println(ans);
     }
 
-    private static void removeDuplicateRC() {
-        Map<String, Shark> duplicateMap = new HashMap<>();
+    private static void duplicateRC() {
+        Map<String, Shark> duplicate = new HashMap<>();
 
-        // 큐를 순회하면서 중복된 Shark을 찾아서 맵에 저장
+        // 큐를 순회하면서 중복제거
         while (!q.isEmpty()) {
-            Shark currentShark = q.poll();
-            String key = currentShark.r + "_" + currentShark.c;
+            Shark p = q.poll();
+            String key = p.r + "_" + p.c;
 
-            // 맵에 저장된 Shark와 비교하여 큰 z 값을 가진 Shark를 저장
-            if (duplicateMap.containsKey(key)) {
-                Shark storedShark = duplicateMap.get(key);
-                if (currentShark.z > storedShark.z) {
-                    duplicateMap.put(key, currentShark);
+            // 맵에 저장된 Shark 와 비교하여 큰 z 값을 가진 Shark 저장
+            if (duplicate.containsKey(key)) {
+                Shark shark = duplicate.get(key);
+                if (p.z > shark.z) {
+                    duplicate.put(key, p);
                 }
             } else {
-                duplicateMap.put(key, currentShark);
+                duplicate.put(key, p);
             }
         }
 
-        // 맵에 저장된 Shark를 다시 큐에 추가
-        q.addAll(duplicateMap.values());
+        // 맵에 저장된 Shark 를 다시 큐에 추가
+        q.addAll(duplicate.values());
     }
 
     private static void move() {
@@ -168,7 +165,6 @@ public class Main {
 //            }
             q.add(new Shark(p.n,nx,ny,p.s,d,p.z));
         }
-
     }
 
     private static void print() {
@@ -176,6 +172,5 @@ public class Main {
             System.out.println(s);
         }
         System.out.println();
-
     }
 }
