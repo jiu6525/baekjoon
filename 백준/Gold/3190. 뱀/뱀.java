@@ -15,22 +15,13 @@ public class Main {
             this.turn = turn;
             this.d = d;
         }
-
-        @Override
-        public String toString() {
-            return "direction{" +
-                    "turn=" + turn +
-                    ", d=" + d +
-                    '}';
-        }
     }
     static BufferedReader br;
     static StringTokenizer st;
     static int n,k,l,ans = 0;
-    static Queue<int[]> apple;
     static Queue<direction> snake_dir;
     static int[][] dir = {{0,1},{1,0},{0,-1},{-1,0}};
-    static LinkedList<int[]> snake = new LinkedList<>();
+    static LinkedList<int[]> snake,apple;
     static int c = 0;
     public static void main(String args[]) throws IOException {
         br = new BufferedReader(new InputStreamReader(System.in));
@@ -38,6 +29,7 @@ public class Main {
         n = Integer.parseInt(br.readLine());
         k = Integer.parseInt(br.readLine());
 
+        snake = new LinkedList<>();
         apple = new LinkedList<>();
         snake_dir = new LinkedList<>();
         snake.add(new int[]{0,0});
@@ -58,30 +50,17 @@ public class Main {
             snake_dir.add(new direction(turn,d));
         }
 
-//        for (int[] l : apple) {
-//            System.out.println(Arrays.toString(l));
-//        }
-//
-//        for (direction d : snake_dir) {
-//            System.out.println(d);
-//        }
-//
-//        for (int[] i : snake) {
-//            System.out.println(Arrays.toString(i));
-//        }
-
 //          자기 몸에 닿는지 확인
 //          전진
 //          방향 전환 확인    turn 이 끝난뒤에 진행
 //          사과 먹으면 연결리스트 추가
 //          몸길이 즈악
 //          정답 누적
-//          중복 체크 해줘야함;
         int dx = 0;
         int dy = 0;
         while(true){
             ans++;
-            
+
 //          이동
             int nx = dx + dir[c][0];
             int ny = dy + dir[c][1];
@@ -92,32 +71,17 @@ public class Main {
             }
 
 //           전진 사과 확인 -> 몸길이 증가
-            if(!duplication(nx,ny)){
-                snake.addFirst(new int[] { nx, ny });
-                if(!eat(nx, ny)){
-                    snake.removeLast();
-                }
+            snake.addFirst(new int[] { nx, ny });
+            if(!eatCheck(nx, ny, apple)){
+                snake.removeLast();
             }
-
-            
 
 //          방향 전환
             changeDir();
-
             dx = nx;
             dy = ny;
-//            print();
-//            System.out.println();
         }
-
-//        System.out.println();
         System.out.println(ans);
-    }
-
-    private static void print() {
-        for (int[] lst : snake) {
-            System.out.print(Arrays.toString(lst) + " ");
-        }
     }
 
     private static void changeDir() {
@@ -134,35 +98,31 @@ public class Main {
         }
     }
 
-    private static boolean eat(int nx, int ny) {
-        int size = apple.size();
+    private static boolean eatCheck(int nx, int ny, LinkedList<int[]> arr) {
+        int size = arr.size();
         for (int i = 0; i < size; i++) {
-            int[] p = apple.poll();
+            int[] p = arr.poll();
             if (Arrays.equals(p, new int[]{nx, ny})) {
                 return true;
             }else{
-                apple.offer(p);
+                arr.offer(p);
             }
         }
         return false;
     }
 
-    private static boolean duplication(int nx, int ny) {
-        LinkedList<int[]> tmp = new LinkedList<>();
-        for (int[] arr : snake) {
-            tmp.add(arr.clone());
-        }
-        int size = tmp.size();
-        for (int i = 0; i < size; i++) {
-            int[] p = tmp.poll();
-            if (Arrays.equals(p, new int[]{nx, ny})) {
-                return true;
-            }else{
-                tmp.offer(p);
-            }
-        }
-        return false;
-    }
+//    private static boolean duplicate(int nx, int ny) {
+//        int size = snake.size();
+//        for (int i = 0; i < size; i++) {
+//            int[] p = snake.poll();
+//            if (Arrays.equals(p, new int[]{nx, ny})) {
+//                return true;
+//            }else{
+//                snake.offer(p);
+//            }
+//        }
+//        return false;
+//    }
 
     private static boolean crush(int nx, int ny) {
         if(nx < 0 || nx >= n || ny < 0 || ny>=n){
