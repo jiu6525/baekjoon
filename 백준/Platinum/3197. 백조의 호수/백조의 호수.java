@@ -3,103 +3,115 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 
+//땅 . 0
+//빙하 x 1
+//사람 L 9
 public class Main {
-    private static int R, C;
-    private static Node[] swan;
-    private static int[][] map;
-    private static Queue<Node> queue, waterQueue;
-    private static boolean[][] visited;
-    private static final int[] dr = { -1, 1, 0, 0 };
-    private static final int[] dc = { 0, 0, -1, 1 };
-    private static int day = 0;
-    static class Node {
-        int r, c;
-        Node(int r, int c) {
-            this.r = r;
-            this.c = c;
+    static class Swan {
+        int x, y;
+        public Swan(int x, int y) {
+            this.x = x;
+            this.y = y;
         }
     }
-    private static void waterBFS() {
-        // 한 번만 녹여야 하므로, 현재 큐 사이즈만큼만 돌린다.
-        int waterSize = waterQueue.size();
+    static BufferedReader br;
+    static StringTokenizer st;
+    private static int n, m;
+    private static Swan[] swans;
+    private static int[][] arr;
+    private static Queue<Swan> swan_q, water_q;
+    private static boolean[][] v;
+    private static final int[][] dir = {{-1,0},{1,0},{0,-1},{0,1}};
+    private static int day = 0;
+
+    public static void main(String[] args) throws IOException {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        st = new StringTokenizer(br.readLine());
+
+        n = Integer.parseInt(st.nextToken());
+        m = Integer.parseInt(st.nextToken());
+
+        arr = new int[n][m];
+        v = new boolean[n][m];
+        swans = new Swan[2];
+
+        swan_q = new LinkedList<>();
+        water_q = new LinkedList<>();
+
+        int idx = 0;
+        for (int i = 0; i < n; i++) {
+            String num = br.readLine();
+            for (int j = 0; j < m; j++) {
+                char w = num.charAt(j);
+                if (w == 'L') {
+                    arr[i][j] = 9;
+                    swans[idx++] = new Swan(i, j);
+                    water_q.offer(new Swan(i, j));
+                }
+                if (w == '.') {
+                    arr[i][j] = 0;
+                    water_q.offer(new Swan(i, j));
+                }
+                if(w == 'X'){
+                    arr[i][j] = 1;
+                }
+
+            }
+        }
+        swan_q.offer(swans[0]);
+        v[swans[0].x][swans[0].y] = true;
+        bfs();
+        System.out.println(day);
+    }
+
+    private static void meltBfs() {
+        int waterSize = water_q.size();
         for (int i = 0; i < waterSize; i++) {
-            Node now = waterQueue.poll();
-            for (int j = 0; j < 4; j++) {
-                int nextR = now.r + dr[j];
-                int nextC = now.c + dc[j];
-                if (nextR >= R || nextR < 0 || nextC >= C || nextC < 0) continue;
-                if (map[nextR][nextC] == 1) {
-                    map[nextR][nextC] = 0;
-                    waterQueue.offer(new Node(nextR, nextC));
+            Swan p = water_q.poll();
+            for (int d = 0; d < 4; d++) {
+                int nx = p.x + dir[d][0];
+                int ny = p.y + dir[d][1];
+                if (nx >= n || nx < 0 || ny >= m || ny < 0) {
+                    continue;
+                }
+                if (arr[nx][ny] == 1) {
+                    arr[nx][ny] = 0;
+                    water_q.offer(new Swan(nx, ny));
                 }
             }
         }
     }
-    private static void BFS() {
-        boolean meet = false;
+
+    private static void bfs() {
+        boolean flag = false;
         while (true) {
-            Queue<Node> nextQueue = new LinkedList<>();
-            while (!queue.isEmpty()) {
-                Node now = queue.poll();
-                if (now.r == swan[1].r && now.c == swan[1].c) {
-                    meet = true;
+            Queue<Swan> nq = new LinkedList<>();
+            while (!swan_q.isEmpty()) {
+                Swan p = swan_q.poll();
+                if (p.x == swans[1].x && p.y == swans[1].y) {
+                    flag = true;
                     break;
                 }
                 for (int i = 0; i < 4; i++) {
-                    int nextR = now.r + dr[i];
-                    int nextC = now.c + dc[i];
-                    if (nextR >= R || nextR < 0 || nextC >= C || nextC < 0 || visited[nextR][nextC]) continue;
-                    visited[nextR][nextC] = true;
-                    if (map[nextR][nextC] == 1) {
-                        nextQueue.offer(new Node(nextR, nextC));
+                    int nx = p.x + dir[i][0];
+                    int ny = p.y + dir[i][1];
+                    if (nx >= n || nx < 0 || ny >= m || ny < 0 || v[nx][ny]){
                         continue;
                     }
-                    queue.offer(new Node(nextR, nextC));
+                    v[nx][ny] = true;
+                    if (arr[nx][ny] == 1) {
+                        nq.offer(new Swan(nx, ny));
+                        continue;
+                    }
+                    swan_q.offer(new Swan(nx, ny));
                 }
             }
-            if (meet) break;
-            queue = nextQueue;
-            waterBFS();
+            if (flag) {
+                break;
+            }
+            swan_q = nq;
+            meltBfs();
             day++;
         }
-    }
-
-    public static void main(String[] args) throws IOException {
-        StringTokenizer st;
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        st = new StringTokenizer(br.readLine());
-
-        R = Integer.parseInt(st.nextToken());
-        C = Integer.parseInt(st.nextToken());
-
-        map = new int[R][C];
-        swan = new Node[2];
-        queue = new LinkedList<>();
-        waterQueue = new LinkedList<>();
-        visited = new boolean[R][C];
-
-        int swanIndex = 0;
-        for (int i = 0; i < R; i++) {
-            String line = br.readLine();
-            for (int j = 0; j < C; j++) {
-                char w = line.charAt(j);
-                if(w == 'L') {
-                    map[i][j] = 9;
-                    swan[swanIndex++] = new Node(i, j);
-                }
-                if(w != 'X') {
-                    map[i][j] = 0;
-                    waterQueue.offer(new Node(i, j));
-                }
-                if(w == 'X'){
-                    map[i][j] = 1;
-                }
-            }
-        }
-
-        queue.offer(swan[0]);
-        visited[swan[0].r][swan[0].c] = true;
-        BFS();
-        System.out.println(day);
     }
 }
