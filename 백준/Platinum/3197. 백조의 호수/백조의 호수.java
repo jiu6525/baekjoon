@@ -6,7 +6,7 @@ import java.util.*;
 public class Main {
     private static int R, C;
     private static Node[] swan;
-    private static char[][] map;
+    private static int[][] map;
     private static Queue<Node> queue, waterQueue;
     private static boolean[][] visited;
     private static final int[] dr = { -1, 1, 0, 0 };
@@ -28,8 +28,8 @@ public class Main {
                 int nextR = now.r + dr[j];
                 int nextC = now.c + dc[j];
                 if (nextR >= R || nextR < 0 || nextC >= C || nextC < 0) continue;
-                if (map[nextR][nextC] == 'X') {
-                    map[nextR][nextC] = '.';
+                if (map[nextR][nextC] == 1) {
+                    map[nextR][nextC] = 0;
                     waterQueue.offer(new Node(nextR, nextC));
                 }
             }
@@ -50,7 +50,7 @@ public class Main {
                     int nextC = now.c + dc[i];
                     if (nextR >= R || nextR < 0 || nextC >= C || nextC < 0 || visited[nextR][nextC]) continue;
                     visited[nextR][nextC] = true;
-                    if (map[nextR][nextC] == 'X') {
+                    if (map[nextR][nextC] == 1) {
                         nextQueue.offer(new Node(nextR, nextC));
                         continue;
                     }
@@ -72,7 +72,7 @@ public class Main {
         R = Integer.parseInt(st.nextToken());
         C = Integer.parseInt(st.nextToken());
 
-        map = new char[R][C];
+        map = new int[R][C];
         swan = new Node[2];
         queue = new LinkedList<>();
         waterQueue = new LinkedList<>();
@@ -80,31 +80,23 @@ public class Main {
 
         int swanIndex = 0;
         for (int i = 0; i < R; i++) {
-            char[] line = br.readLine().toCharArray();
+            String line = br.readLine();
             for (int j = 0; j < C; j++) {
-                map[i][j] = line[j];
-                if(map[i][j] == 'L') {
+                char w = line.charAt(j);
+                if(w == 'L') {
+                    map[i][j] = 9;
                     swan[swanIndex++] = new Node(i, j);
                 }
-                if(map[i][j] != 'X') {
+                if(w != 'X') {
+                    map[i][j] = 0;
                     waterQueue.offer(new Node(i, j));
+                }
+                if(w == 'X'){
+                    map[i][j] = 1;
                 }
             }
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
         queue.offer(swan[0]);
         visited[swan[0].r][swan[0].c] = true;
         BFS();
