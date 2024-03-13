@@ -22,11 +22,11 @@ public class Main {
     private static void waterBFS() {
         // 한 번만 녹여야 하므로, 현재 큐 사이즈만큼만 돌린다.
         int waterSize = waterQueue.size();
-        while (waterSize-- > 0) {
+        for (int i = 0; i < waterSize; i++) {
             Node now = waterQueue.poll();
-            for (int i = 0; i < 4; i++) {
-                int nextR = now.r + dr[i];
-                int nextC = now.c + dc[i];
+            for (int j = 0; j < 4; j++) {
+                int nextR = now.r + dr[j];
+                int nextC = now.c + dc[j];
                 if (nextR >= R || nextR < 0 || nextC >= C || nextC < 0) continue;
                 if (map[nextR][nextC] == 'X') {
                     map[nextR][nextC] = '.';
@@ -91,6 +91,20 @@ public class Main {
                 }
             }
         }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         queue.offer(swan[0]);
         visited[swan[0].r][swan[0].c] = true;
         BFS();
