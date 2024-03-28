@@ -5,27 +5,31 @@ public int solution(int[][] jobs) {
         int size = jobs.length;
 
         Arrays.sort(jobs, Comparator.comparingInt(a -> a[0]));
-
-        PriorityQueue<int[]> pq = new PriorityQueue<>(Comparator.comparingInt((int[] a) -> a[1]));
-
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a,b) -> a[1]-b[1]);    
+    
         int time = 0;
-        int index = 0;
-        while (index < size || !pq.isEmpty()) {
-            while (index < size && jobs[index][0] <= time) {
-                pq.offer(jobs[index]);
-                index++;
+        int idx = 0;
+    
+        while(idx < size || !pq.isEmpty()){
+//          ;;;;;;;
+            while(idx < size && jobs[idx][0] <= time){
+                pq.offer(jobs[idx]);
+                idx++;
             }
-            if (!pq.isEmpty()) {
+            
+            if(!pq.isEmpty()){
                 int[] target = pq.poll();
                 int request = target[0];
                 int work = target[1];
+                
                 time += work;
-                answer += time - request;
-            } else {
-                time = jobs[index][0];
+                answer += time-request;
+            }else{
+                time = jobs[idx][0];
             }
+            
         }
-        
+    
         return answer / size;
     }
 }
