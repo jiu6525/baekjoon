@@ -13,8 +13,8 @@ public class Main {
 		for(int tc=1; tc<=T; tc++) {
 			N = Integer.parseInt(br.readLine());
 			st = new StringTokenizer(br.readLine());
-			int sj = Integer.parseInt(st.nextToken());
-			int si = Integer.parseInt(st.nextToken());
+			int ej = Integer.parseInt(st.nextToken());
+			int ei = Integer.parseInt(st.nextToken());
 			
 			lst = new ArrayList<>();
 			for (int i = 0; i < N; i++) {
@@ -24,8 +24,8 @@ public class Main {
 				lst.add(new int[] {tj,ti});
 			}
 			st = new StringTokenizer(br.readLine());
-			int ej = Integer.parseInt(st.nextToken());
-			int ei = Integer.parseInt(st.nextToken());
+			int sj = Integer.parseInt(st.nextToken());
+			int si = Integer.parseInt(st.nextToken());
 			
 			String ans = bfs(sj,si,ej,ei);
 			System.out.println(ans);
@@ -56,8 +56,6 @@ public class Main {
 					
 				}
 			}
-			
-			
 		}
 		return "sad";
 	}
