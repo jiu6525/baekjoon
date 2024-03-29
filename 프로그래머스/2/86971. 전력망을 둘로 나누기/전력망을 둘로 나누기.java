@@ -2,15 +2,13 @@ import java.util.*;
 class Solution {
     public int solution(int n, int[][] wires) {
 		List<List<Integer>> arr = new ArrayList<>();
-		int size = findMax(wires)+1;
+		int size = n+1;
 		int ans = Integer.MAX_VALUE;
 		
 		for (int i = 0; i < wires.length; i++) {
 			arr = idj(arr, size);
 			for (int j = 0; j < wires.length; j++) {
-				if(i==j) {
-					continue;
-				}else {
+				if(i!=j) {
 					int[] l = wires[j];
 					arr.get(l[0]).add(l[1]);
 					arr.get(l[1]).add(l[0]);
@@ -53,17 +51,7 @@ class Solution {
 				cnt += dfs(graph,i,visited);
 			}
 		}
-		
 		return cnt;
 		
-	}
-	private static int findMax(int[][] lst) {
-		int ans = Integer.MIN_VALUE;
-		for (int[] l : lst) {
-			for (int i = 0; i < l.length; i++) {
-				ans = Math.max(ans, l[i]);
-			}
-		}
-		return ans;
 	}
 }
