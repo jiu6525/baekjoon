@@ -51,15 +51,15 @@ public class Solution {
     private static void dijkstra() {
         PriorityQueue<Node> pq = new PriorityQueue<>();
         distance[0][0] = arr[0][0];
-        pq.offer(new Node(0,0, arr[0][0]));
+        pq.offer(new Node(0,0,arr[0][0]));
 
-        while(!pq.isEmpty()){
+        while (!pq.isEmpty()){
             Node p = pq.poll();
             for (int[] d : dir) {
                 int dx = p.x + d[0];
                 int dy = p.y + d[1];
 
-                if(dx<0 || dx >= r || dy<0 || dy>=r){
+                if(dx<0 || dx>=r || dy<0 || dy>=r){
                     continue;
                 }
 
@@ -67,10 +67,9 @@ public class Solution {
                     distance[dx][dy] = distance[p.x][p.y] + arr[dx][dy];
                     pq.offer(new Node(dx,dy,distance[dx][dy]));
                 }
-
             }
         }
-    }
+}
 
     private static void print(int[][] map) {
         for (int[] lst : map) {
