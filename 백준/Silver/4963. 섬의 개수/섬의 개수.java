@@ -1,80 +1,67 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.StringTokenizer;
-
+import java.io.*;
+import java.util.*;
 
 public class Main {
-    static BufferedReader br;
-    static StringTokenizer st;
-    static int w,h;
-    static int[][] arr;
-    static int ans;
-
-    public static void main(String[] args) throws Exception{
+	static BufferedReader br;
+	static StringTokenizer st;
+	static int t,r,c,k;
+	static int[][] arr;
+	static boolean[][] v;
+	static int ans,cnt;
+	static int[][] dir = {{0,1},{1,0},{0,-1},{-1,0},{-1,-1},{-1,1},{1,1},{1,-1}};
+	public static void main(String[] args) throws Exception {
+        //System.setIn(new FileInputStream("src/jiu/Main.txt"));
         br = new BufferedReader(new InputStreamReader(System.in));
-
-        while(true){
-            st = new StringTokenizer(br.readLine());
-            w = Integer.parseInt(st.nextToken());
-            h = Integer.parseInt(st.nextToken());
-            arr = new int[h][w];
+        while(true) {
+        	st = new StringTokenizer(br.readLine());
+            c = Integer.parseInt(st.nextToken());
+            r = Integer.parseInt(st.nextToken());
+            if(r == 0 && c == 0) {
+            	break;
+            }
+            
             ans = 0;
-            if(w==0 && h==0){
-                break;
-            }
-
-            for (int i = 0; i < h; i++) {
-                st = new StringTokenizer(br.readLine());
-                for (int j = 0; j < w; j++) {
-                    arr[i][j] = Integer.parseInt(st.nextToken());
-                }
-            }
-
-//            print();
-
-            for (int i = 0; i < h; i++) {
-                for (int j = 0; j < w; j++) {
-                    if(arr[i][j] != 0){
-                        if(dfs(i, j)){
-                            ans++;
-                        }
-                    }
-                }
-            }
+            arr = new int[r][c];
+            v = new boolean[r][c];
+            
+            for (int i = 0; i < r; i++) {
+            	st = new StringTokenizer(br.readLine());
+				for (int j = 0; j < c; j++) {
+					arr[i][j] = Integer.parseInt(st.nextToken());
+				}
+			}
+            
+            
+            for (int i = 0; i < r; i++) {
+				for (int j = 0; j < c; j++) {
+					if(!v[i][j] && arr[i][j] == 1) {
+						ans++;
+						dfs(i,j);
+					}
+				}
+			}
+            
             System.out.println(ans);
         }
-    }
-
-    private static boolean dfs(int x, int y) {
-        if(x<0 || y<0 || x>=h || y>=w){
-            return false;
-        }
-
-        if(arr[x][y] != 0){
-            arr[x][y] = 0;
-
-            dfs(x-1,y-1);
-            dfs(x-1,y);
-            dfs(x-1,y+1);
-            dfs(x,y-1);
-            dfs(x,y+1);
-            dfs(x+1,y-1);
-            dfs(x+1,y);
-            dfs(x+1,y+1);
-
-            return true;
-        }
-
-        return false;
-    }
-
-    private static void print() {
-        for (int[] ints : arr) {
-            System.out.println(Arrays.toString(ints));
-        }
-        System.out.println();
-    }
-
+                
+	}
+	private static void dfs(int x, int y) {
+		v[x][y] = true;
+		
+		for (int[] d : dir) {
+			int nx = x + d[0];
+			int ny = y + d[1];
+			
+			if(check(nx,ny) && arr[nx][ny] == 1 && !v[nx][ny]) {
+				dfs(nx,ny);
+			}
+		}
+		
+	}
+	private static boolean check(int nx, int ny) {
+		if(nx >= 0 && nx<r && ny >= 0 && ny < c) {
+			return true;
+		}
+		return false;
+	}
 }
-
