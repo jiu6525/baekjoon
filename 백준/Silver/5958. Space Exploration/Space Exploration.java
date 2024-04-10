@@ -1,0 +1,71 @@
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.StringTokenizer;
+
+
+public class Main {
+    static BufferedReader br;
+    static StringTokenizer st;
+    static int n,m, cnt1, cnt2,sheep,wolf, ans;
+    static int h;
+    static int[][] dir = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
+//    static int[][] dir = {{-1, 0}, {1, 0}, {0, 1}, {0, -1},{-1,-1},{-1,1},{1,-1},{1,1}};
+    static char[][] arr;
+    static boolean[][] v;
+    static boolean flag;
+
+    public static void main(String[] args) throws NumberFormatException, IOException {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        n = Integer.parseInt(br.readLine());
+
+        arr = new char[n][n];
+        v = new boolean[n][n];
+
+        ans = 0;
+        for (int i = 0; i < n; i++) {
+            arr[i] = br.readLine().toCharArray();
+        }
+
+//            print();
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if(!v[i][j] && arr[i][j] == '*'){
+                    ans++;
+                    dfs(i,j);
+                }
+            }
+        }
+        System.out.println(ans);
+
+    }
+
+    private static void dfs(int x, int y) {
+        v[x][y] = true;
+
+        for (int[] d : dir) {
+            int nx = x + d[0];
+            int ny = y + d[1];
+
+            if(check(nx,ny) && !v[nx][ny] && arr[nx][ny] == '*'){
+                dfs(nx,ny);
+            }
+        }
+    }
+
+    private static boolean check(int nx, int ny) {
+        if(nx >= 0 && nx < n && ny >= 0 && ny < n){
+            return true;
+        }
+        return false;
+    }
+
+    private static void print() {
+        for (char[] lst : arr) {
+            System.out.println(Arrays.toString(lst));
+        }
+    }
+
+}
