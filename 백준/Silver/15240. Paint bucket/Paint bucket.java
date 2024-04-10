@@ -2,10 +2,26 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.StringTokenizer;
+import javax.swing.Spring;
 
 
 public class Main {
+
+    static class Node{
+        int x,y,c,t;
+
+        public Node(int x, int y, int c,int t) {
+            this.x = x;
+            this.y = y;
+            this.c = c;
+            this.t = t;
+        }
+
+        public Node() {}
+    }
     static BufferedReader br;
     static StringTokenizer st;
     static StringBuilder sb = new StringBuilder();
@@ -39,27 +55,36 @@ public class Main {
         int y = Integer.parseInt(st.nextToken());
         int c = Integer.parseInt(st.nextToken());
 
-//
-        dfs(x,y,c, arr[x][y]);
-        print();
+        bfs(new Node(x,y,c,arr[x][y]));
+        for (int[] lst : arr) {
+            for (int i : lst) {
+                sb.append(i);
+            }
+            sb.append("\n");
+        }
         System.out.println(sb);
-
     }
 
-    private static void dfs(int x, int y, int c, int i) {
-        v[x][y] = true;
-        if(arr[x][y] != i){
-            return;
-        }else{
-            arr[x][y] = c;
-        }
+    private static void bfs(Node node) {
+        Queue<Node> q = new LinkedList<>();
+        v[node.x][node.y] = true;
+        arr[node.x][node.y] = node.c;
+        q.offer(node);
 
-        for (int[] d : dir) {
-            int nx = x + d[0];
-            int ny = y + d[1];
+        while(!q.isEmpty()){
+            Node p = q.poll();
+            int dx = p.x;
+            int dy = p.y;
 
-            if(check(nx,ny) && !v[nx][ny] && arr[nx][ny] == i){
-                dfs(nx,ny,c,i);
+            for (int[] d : dir) {
+                int nx = dx + d[0];
+                int ny = dy + d[1];
+
+                if(check(nx,ny) && !v[nx][ny] && arr[nx][ny] == p.t){
+                    v[nx][ny] = true;
+                    arr[nx][ny] = p.c;
+                    q.offer(new Node(nx,ny,p.c,p.t));
+                }
             }
         }
     }
@@ -71,14 +96,4 @@ public class Main {
         }
         return false;
     }
-
-    private static void print() {
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                sb.append(arr[i][j]);
-            }
-            sb.append("\n");
-        }
-    }
-
 }
