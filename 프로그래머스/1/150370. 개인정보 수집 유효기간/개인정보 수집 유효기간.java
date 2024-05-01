@@ -39,7 +39,7 @@ class Solution {
 
         int totalDays = cal.get(Calendar.DATE) + days;
         int newYear = cal.get(Calendar.YEAR);
-        int newMonth = cal.get(Calendar.MONTH) + 1;
+        int newMonth = cal.get(Calendar.MONTH);
         int newDay;
 
         while (totalDays > 28) {
@@ -53,7 +53,7 @@ class Solution {
         newDay = totalDays;
 
         cal.set(Calendar.YEAR, newYear);
-        cal.set(Calendar.MONTH, newMonth - 1); 
+        cal.set(Calendar.MONTH, newMonth); 
         cal.set(Calendar.DATE, newDay);
 
         return dateFormat.format(cal.getTime());
