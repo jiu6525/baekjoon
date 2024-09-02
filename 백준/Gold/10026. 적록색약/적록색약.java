@@ -1,88 +1,77 @@
-//package jiu;
-
 import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.StringTokenizer;
+    import java.io.FileInputStream;
+    import java.io.IOException;
+    import java.io.InputStreamReader;
+    import java.util.Arrays;
+    import java.util.HashMap;
+    import java.util.Map;
 
-// 빨파초 각자 구하는 dfs를 작성해야 하나
-// 방문처리를 해줘야 겠지
-public class Main {
-	static BufferedReader br;
-	static StringTokenizer st;
-	static int  n, m, rgcnt, cnt;
-	static char[][] arr,rgarr;
-	static boolean[][] v,rgv;
-	static int[][] dir = {{0,1},{1,0},{-1,0},{0,-1}};
-	public static void main(String[] args) throws NumberFormatException, IOException {
-		//System.setIn(new FileInputStream("src/jiu/Main.txt"));
-		br = new BufferedReader(new InputStreamReader(System.in));
-		n = Integer.parseInt(br.readLine());
-		arr = new char[n][n];
-		rgarr = new char[n][n];
-		v = new boolean[n][n];
-		rgv = new boolean[n][n];
-		
-		for (int i = 0; i < n; i++) {
-			String line = br.readLine();
-			for (int j = 0; j < n; j++) {
-				char word = line.charAt(j);
-				arr[i][j] = word;
-				if(word == 'R' || word == 'G') {
-					rgarr[i][j] = 'R';
-				}else {
-					rgarr[i][j] = word;
-				}
-			}
-		}
-		
-		cnt = 0;
-		rgcnt = 0;
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < n; j++) {
-				if(!v[i][j]) {
-					if(dfs(i,j,arr[i][j],arr, v)) {
-						cnt++;
-					}
-				}
-				if(!rgv[i][j]) {
-					if(dfs(i,j,rgarr[i][j],rgarr, rgv)) {
-						rgcnt++;
-					}
-				}
-			}
-		}
-		
-		System.out.printf("%d %d",cnt,rgcnt);
-	}
-	
-	private static boolean dfs(int x, int y,char w, char[][] map, boolean[][] v) {
-		if(x<0 || x>=n || y<0 || y>=n) {
-			return false;
-		}
-		
-		if(map[x][y] != w) {
-			return false;
-		}else {
-			if(!v[x][y]) {
-				v[x][y] = true;
-				
-				dfs(x-1,y,w,map,v);
-				dfs(x+1,y,w,map,v);
-				dfs(x,y-1,w,map,v);
-				dfs(x,y+1,w,map,v);
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	private static void print(char[][] map) {
-		for (char[] cs : map) {
-			System.out.println(Arrays.toString(cs));
-		}
-		System.out.println();
-	}
-}
+
+    public class Main {
+
+        public static BufferedReader br;
+        public static int n;
+        public static int[][] arr;
+        public static boolean[][] flag;
+        public static int ans1 = 0;
+        public static int ans2 = 0;
+        public static void main(String[] args) throws IOException {
+            //System.setIn(new FileInputStream("src/input.txt"));
+            br = new BufferedReader(new InputStreamReader(System.in));
+            n = Integer.parseInt(br.readLine());
+            arr = new int[n][n];
+            flag = new boolean[n][n];
+
+            // R - 82, B - 66, G - 71
+            for (int i = 0; i < n; i++) {
+                char[] cArr = br.readLine().toCharArray();
+                for (int j = 0; j < n; j++) {
+                    arr[i][j] = cArr[j];
+                }
+            }
+
+            ans1 = cal();
+
+            flag = new boolean[n][n];
+
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    if(arr[i][j] == 82){
+                        arr[i][j] = 71;
+                    }
+                }
+            }
+
+            ans2 = cal();
+
+
+            System.out.println(ans1 + " " + ans2);
+        }
+
+        private static int cal() {
+            int count = 0;
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    if (!flag[i][j]) {
+                        count++;
+                        dfs(i, j, arr[i][j]);
+                    }
+                }
+            }
+            return count;
+        }
+
+        private static void dfs(int x, int y, int num) {
+            if (x < 0 || x >= n || y < 0 || y >= n || flag[x][y] || arr[x][y] != num) {
+                return;
+            }
+
+            flag[x][y] = true;
+
+            dfs(x, y + 1, num);
+            dfs(x - 1, y, num);
+            dfs(x, y - 1, num);
+            dfs(x + 1, y, num);
+
+        }
+    }
